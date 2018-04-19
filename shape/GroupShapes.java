@@ -6,7 +6,7 @@ import java.util.List;
 public class GroupShapes extends AShape {
 	private List<IShape> _group;
 	
-	public GroupShapes() {
+	public GroupShapes(List<IShape> group) {
 		super(new Point2DCartesian(1,1), 0, 0);
 		_group = new ArrayList<IShape>();
 	}
@@ -37,11 +37,6 @@ public class GroupShapes extends AShape {
 	
 	public String toString() {
 		return "to be implemented";
-	}
-
-	@Override
-	public void updateRotationCenter() {
-		// TO DO
 	}
 	
 	// TO DO

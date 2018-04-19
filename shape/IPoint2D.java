@@ -1,17 +1,18 @@
 package shape;
 
 public interface IPoint2D extends Cloneable{
-    double getX();
-    void setX(double x);
+    public double getX();
+    public void setX(double x);
 
-    double getY();
-    void setY(double y);
+    public double getY();
+    public void setY(double y);
 
-    void translate(double x, double y);
+    public void translate(double x, double y);
+    public void rotate(IPoint2D p, double degree);
 
-    Point2DCartesian clone();
-    boolean equals(IPoint2D p);
-    String toString();
+    public Point2DCartesian clone();
+    public boolean equals(IPoint2D p);
+    public String toString();
 
     static final double EPSILON = 1E-6;
 }

@@ -34,6 +34,16 @@ public class Point2DCartesian implements IPoint2D {
     	_y += y;
     }
     
+    public void rotate(IPoint2D p, double degree) {
+    	double radians = Math.toRadians(degree);
+    	_x -= p.getX();
+    	_y -= p.getY();
+    	_x = _x * Math.cos(Math.toRadians(radians)) + _y *  Math.sin(Math.toRadians(radians));
+    	_y = -_x * Math.sin(Math.toRadians(radians)) + _y *  Math.cos(Math.toRadians(radians));
+    	_x += p.getX();
+    	_y += p.getY();
+    }
+    
     public Point2DCartesian clone(){
         Point2DCartesian p = null;
         try {

@@ -2,27 +2,19 @@ package shape;
 
 public interface IShape extends Cloneable {
 	// position
-	Point2DCartesian getPosition();
-	void setPosition(Point2DCartesian p);
-	
-	// rotation
-	double getRotation();
-	void setRotation(double r);
-	
-	// rotation center
-	Point2DCartesian getRotationCenter();
-	void setRotationCenter(Point2DCartesian p);
+	public IPoint2D getPosition();
+	public void setPosition(IPoint2D p);
 
 	// color
-	int getColor();
-	void setColor(int c);
+	public int getColor();
+	public void setColor(int c);
 	
 	// methods
-	void rotate(double r);
-	void translate(double x, double y);
+	public void rotate(IPoint2D p, double degree);
+	public void translate(double x, double y);
 
 	// canonical form
-	IShape clone();
-	boolean equals(IShape shape);
-	String toString();
+	public IShape clone();
+	public boolean equals(IShape shape);
+	public String toString();
 }

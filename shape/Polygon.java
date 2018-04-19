@@ -3,11 +3,10 @@ package shape;
 public class Polygon extends AShape {
 	
 	// constructor
-	public Polygon(Point2DCartesian position, double rotation, int color, int nbSides, double lengthSide) {
+	public Polygon(IPoint2D position, double rotation, int color, int nbSides, double lengthSide) {
 		super(position, rotation, color);
 		_nbSides = nbSides;
 		_lengthSide = lengthSide;
-		updateRotationCenter();
 	}
 	
 	// getters - setters
@@ -17,7 +16,6 @@ public class Polygon extends AShape {
 	
 	public void setNbSides(int nbSides) {
 		_nbSides = nbSides;
-		updateRotationCenter();
 	}
 	
 	public double getLengthSide() {
@@ -26,7 +24,6 @@ public class Polygon extends AShape {
 	
 	public void setLengthSide(double lengthSide) {
 		_lengthSide = lengthSide;
-		updateRotationCenter();
 	}
 	
 	// methods
@@ -49,7 +46,6 @@ public class Polygon extends AShape {
 			return false;
 		return getPosition().equals(p.getPosition()) 
 				&& getRotation() == p.getRotation() 
-				&& getRotationCenter().equals(p.getRotationCenter()) 
 				&& getColor() == p.getColor()
 				&& getNbSides() == p.getNbSides()
 				&& getLengthSide() == p.getLengthSide();
@@ -62,11 +58,6 @@ public class Polygon extends AShape {
 		str.append(Double.toString(getLengthSide()));
 		str.append("\n");
 		return super.toString() + str.toString();
-	}
-
-	@Override
-	public void updateRotationCenter() {
-		//TO DO
 	}
 
 	// object members

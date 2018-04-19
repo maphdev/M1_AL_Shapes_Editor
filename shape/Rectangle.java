@@ -3,12 +3,11 @@ package shape;
 public class Rectangle extends AShape {
 
 	// constructor
-	public Rectangle(Point2DCartesian position, double rotation, int color, double width, double height, double rounding) {
+	public Rectangle(IPoint2D position, double rotation, int color, double width, double height, double rounding) {
 		super(position, rotation, color);
 		_width = width;
 		_height = height;
 		_rounding = rounding;
-		updateRotationCenter();
 	}
 
 	// getters - setters
@@ -18,7 +17,6 @@ public class Rectangle extends AShape {
 	
 	public void setWidth(double w) {
 		_width = w;
-		updateRotationCenter();
 	}
 	
 	public double getHeight() {
@@ -27,7 +25,6 @@ public class Rectangle extends AShape {
 
 	public void setHeight(double h) {
 		_height = h;
-		updateRotationCenter();
 	}
 	
 	public double getRounding() {
@@ -58,7 +55,6 @@ public class Rectangle extends AShape {
 			return false;
 		return getPosition().equals(r.getPosition()) 
 				&& getRotation() == r.getRotation() 
-				&& getRotationCenter().equals(r.getRotationCenter()) 
 				&& getColor() == r.getColor()
 				&& getWidth() == r.getWidth()
 				&& getHeight() == r.getWidth()
@@ -75,11 +71,6 @@ public class Rectangle extends AShape {
 		str.append(Double.toString(getRounding()));
 		str.append("\n");
 		return super.toString() + str.toString();
-	}
-
-	@Override
-	public void updateRotationCenter() {
-		setRotationCenter(new Point2DCartesian(getPosition().getX() + getWidth()/2, getPosition().getY() + getHeight()/2));
 	}
 
 	// object members

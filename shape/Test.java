@@ -8,7 +8,6 @@ public class Test {
 		System.out.println(poly2.toString());
 		poly2.setPosition(new Point2DCartesian(1,1));
 		poly2.setRotation(90);
-		poly2.setRotationCenter(new Point2DCartesian(12,12));
 		poly2.setLengthSide(12);
 		poly2.setNbSides(12);
 		poly2.setColor(2);

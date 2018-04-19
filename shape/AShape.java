@@ -3,10 +3,9 @@ package shape;
 public abstract class AShape implements IShape {
 	
 	// constructor
-	public AShape(Point2DCartesian position, double rotation, int color) {
+	public AShape(IPoint2D position, double rotation, int color) {
 		_position = position.clone();
 		_rotation = rotation;
-		_rotationCenter = new Point2DCartesian();
 		_color = color;
 	}
 	
@@ -15,7 +14,7 @@ public abstract class AShape implements IShape {
 		return _position;
 	}
 	
-	public void setPosition(Point2DCartesian p) {
+	public void setPosition(IPoint2D p) {
 		_position = p.clone();
 	}
 	
@@ -23,16 +22,8 @@ public abstract class AShape implements IShape {
 		return _rotation;
 	}
 	
-	public void setRotation(double r) {
-		_rotation = r;
-	}
-	
-	public Point2DCartesian getRotationCenter() {
-		return _rotationCenter;
-	}
-	
-	public void setRotationCenter(Point2DCartesian p) {
-		_rotationCenter = p.clone();
+	public void setRotation(double degree) {
+		_rotation = degree;
 	}
 	
 	public int getColor() {
@@ -44,20 +35,20 @@ public abstract class AShape implements IShape {
 	}
 	
 	// methods
-	public void rotate(double r) {
-		_rotation += r;
+	public void rotate(IPoint2D p, double degree) {
+		_rotation += degree;
+		_position.rotate(p, degree);
 	}
 	
 	public void translate(double x, double y) {
 		_position.translate(x, y);
 	}
 	
-	public AShape clone(){
+	public AShape clone() {
 		AShape s = null;
 		try {
 			s = (AShape) super.clone();
 			s._position = _position.clone();
-			s._rotationCenter = _rotationCenter.clone();
 		} catch (CloneNotSupportedException e) {
 			e.printStackTrace();
 		}
@@ -71,19 +62,14 @@ public abstract class AShape implements IShape {
 		str.append(_position.toString());
 		str.append("\nRotation : ");
 		str.append(Double.toString(getRotation()));
-		str.append("\nRotation center : ");
-		str.append(_rotationCenter.toString());
 		str.append("\nColor : ");
 		str.append(Integer.toString(getColor()));
 		str.append("\n");
 		return str.toString();
 	}
-
-	public abstract void updateRotationCenter();
 	
 	// object members
 	private Point2DCartesian _position;
 	private double _rotation;
-	private Point2DCartesian _rotationCenter;
 	private int _color;
 }
