@@ -18,14 +18,14 @@ public class AppEditeurFx extends Application implements AppEditeur{
 	private Scene scene;
 	
 	private InterfaceGraphique iGraph;
-	private Menu barMenu;
-	private CanvasMenu barCanvas;
+	private Menu menu;
+	private CanvasMenu canvasMenu;
 	private Canvas canvas;
 	
 	public AppEditeurFx() {}
 	public AppEditeurFx(Menu barMenu, CanvasMenu barCanvas, Canvas canvas) {
-		this.barMenu = barMenu;
-		this.barCanvas = barCanvas;
+		this.menu = barMenu;
+		this.canvasMenu = barCanvas;
 		this.canvas = canvas;
 	}
 	
@@ -43,14 +43,14 @@ public class AppEditeurFx extends Application implements AppEditeur{
         stage.show();
         
         iGraph = new InterfaceFx(root);
-        barMenu = barMenu==null? iGraph.createBarMenu(): iGraph.createBarMenu(barMenu);
+        menu = menu==null? iGraph.createBarMenu(): iGraph.createBarMenu(menu);
 	}
 	
 	public Menu getBarMenu() {
-		return barMenu;
+		return menu;
 	}
 	public CanvasMenu getBarCanvas() {
-		return barCanvas;
+		return canvasMenu;
 	}
 	public Canvas getCanvas() {
 		return canvas;

@@ -1,5 +1,7 @@
 package shape;
 
+import canvas.RenderShape;
+
 public abstract class AShape implements IShape {
 	
 	// constructor
@@ -43,6 +45,8 @@ public abstract class AShape implements IShape {
 	public void translate(double x, double y) {
 		_position.translate(x, y);
 	}
+	
+	public abstract void draw(RenderShape render);
 	
 	public AShape clone() {
 		AShape s = null;

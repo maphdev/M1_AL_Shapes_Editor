@@ -1,6 +1,9 @@
 package shape;
 
 import java.util.List;
+
+import canvas.RenderShape;
+
 import java.util.ArrayList;
 
 public class GroupShapes extends AShape {
@@ -25,6 +28,10 @@ public class GroupShapes extends AShape {
 	
 	public List<IShape> getGroupShapes(){
 		return _group;
+	}
+	
+	public void draw(RenderShape render) {
+		render.draw(this);
 	}
 	
 	// methods

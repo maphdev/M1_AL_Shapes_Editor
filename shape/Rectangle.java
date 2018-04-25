@@ -1,5 +1,7 @@
 package shape;
 
+import canvas.RenderShape;
+
 public class Rectangle extends AShape {
 
 	// constructor
@@ -33,6 +35,10 @@ public class Rectangle extends AShape {
 	
 	public void setRounding(double r) {
 		_rounding = r;
+	}
+	
+	public void draw(RenderShape render) {
+		render.draw(this);
 	}
 	
 	// methods

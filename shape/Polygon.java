@@ -1,5 +1,7 @@
 package shape;
 
+import canvas.RenderShape;
+
 public class Polygon extends AShape {
 	
 	// constructor
@@ -24,6 +26,10 @@ public class Polygon extends AShape {
 	
 	public void setLengthSide(double lengthSide) {
 		_lengthSide = lengthSide;
+	}
+	
+	public void draw(RenderShape render) {
+		render.draw(this);
 	}
 	
 	// methods

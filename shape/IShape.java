@@ -1,5 +1,7 @@
 package shape;
 
+import canvas.RenderShape;
+
 public interface IShape extends Cloneable {
 	// position
 	public IPoint2D getPosition();
@@ -12,6 +14,8 @@ public interface IShape extends Cloneable {
 	// methods
 	public void rotate(IPoint2D p, double degree);
 	public void translate(double x, double y);
+	
+	public void draw(RenderShape render);
 
 	// canonical form
 	public IShape clone();

@@ -1,12 +1,15 @@
 package canvas;
 
+import canvas.CanvasAbstract.MementoCanvas;
 import shape.IShape;
 
 public interface Canvas {
 	public void execute(CommandCanvas command);
+	public void undo();
+	public void redo();
 	public void add(IShape shape);
 	public void remove(IShape shape);
 	public void draw();
-	public Memento createMemento();
-	public void restoreMemento(Memento m);
+	public MementoCanvas createMemento();
+	public void restoreMemento(MementoCanvas m);
 }

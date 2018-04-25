@@ -9,13 +9,23 @@ import shape.IShape;
 public abstract class CanvasAbstract implements Canvas{
 	
 	public class MementoCanvas implements Memento{
-		public MementoCanvas(Canvas c) {}
+		private List<IShape> shapes;
+		private CanvasAbstract canvas;
+		public MementoCanvas(CanvasAbstract c) {
+			shapes = new ArrayList<IShape>();
+			for(IShape shape : c.shapes) {
+				shapes.add(shape.clone());
+			}
+			canvas = c;
+		}
 	}
 	
 	private ArrayDeque<CommandCanvas> undoStack;
 	private ArrayDeque<CommandCanvas> redoStack;
 	
 	private List<IShape> shapes;
+	
+	protected RenderShape renderShape;
 	
 	public CanvasAbstract() {
 		undoStack = new ArrayDeque<CommandCanvas>();
@@ -24,15 +34,44 @@ public abstract class CanvasAbstract implements Canvas{
 	}
 	
 	public void execute(CommandCanvas command) {
-		
+		undoStack.addFirst(command);
+		command.execute();
+		redoStack = new ArrayDeque<CommandCanvas>();
 	}
-	public void add(IShape shape) {}
-	public void remove(IShape shape) {}
-	public void draw() {}
-	public Memento createMemento() {
+	
+	public void redo() {
+		CommandCanvas c = redoStack.pollFirst();
+		this.execute(c);
+	}
+	
+	public void undo() {
+		CommandCanvas c = undoStack.pollFirst();
+		redoStack.addFirst(c);
+		c.reverse();
+	}
+	
+	public void add(IShape shape) {
+		shapes.add(shape);
+	}
+	public void remove(IShape shape) {
+		shapes.remove(shape);
+	}
+	
+	public void draw() {
+		for(IShape shape : shapes) {
+			shape.draw(renderShape);
+		}
+	}
+	public MementoCanvas createMemento() {
 		return new MementoCanvas(this);
 	}
-	public void restoreMemento(Memento m) {}
+	public void restoreMemento(MementoCanvas m) {
+		shapes = new ArrayList<IShape>();
+		for(IShape shape : m.shapes) {
+			shapes.add(shape.clone());
+		}
+		
+	}
 	
 	
 }
