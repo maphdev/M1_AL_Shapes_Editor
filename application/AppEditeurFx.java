@@ -10,6 +10,10 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import menu.CanvasMenu;
 import menu.Menu;
+import shape.Point2DCartesian;
+import shape.Rectangle;
+import canvas.RenderShape;
+import canvas.RenderShapeFx;
 
 public class AppEditeurFx extends Application implements AppEditeur{
 	
@@ -45,6 +49,9 @@ public class AppEditeurFx extends Application implements AppEditeur{
         iGraph = new InterfaceFx(root);
         menu = menu==null? iGraph.createBarMenu(): iGraph.createBarMenu(menu);
         canvas = canvas==null? iGraph.createCanvas(): iGraph.createCanvas(canvas);
+        RenderShape r = new RenderShapeFx(root, 60, 60);
+        Rectangle rect = new Rectangle(new Point2DCartesian(0, 0), 0, 16711680, 12, 13, 30);
+        r.draw(rect);
 	}
 	
 	public Menu getBarMenu() {

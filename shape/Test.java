@@ -10,7 +10,7 @@ public class Test {
 		poly2.setRotation(90);
 		poly2.setLengthSide(12);
 		poly2.setNbSides(12);
-		poly2.setColor(2);
+		poly2.setColor(0);
 		System.out.println("-----------");
 		System.out.println(poly.toString());
 		System.out.println(poly2.toString());

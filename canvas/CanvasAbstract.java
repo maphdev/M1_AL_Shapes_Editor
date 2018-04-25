@@ -41,7 +41,6 @@ public abstract class CanvasAbstract implements Canvas{
 		undoStack.addFirst(command);
 		command.execute();
 		redoStack = new ArrayDeque<CommandCanvas>();
-		draw();
 	}
 	
 	public void redo() {
@@ -57,11 +56,9 @@ public abstract class CanvasAbstract implements Canvas{
 	
 	public void add(IShape shape) {
 		shapes.add(shape);
-		draw();
 	}
 	public void remove(IShape shape) {
 		shapes.remove(shape);
-		draw();
 	}
 	
 	public void draw() {
@@ -77,7 +74,6 @@ public abstract class CanvasAbstract implements Canvas{
 		for(IShape shape : m.shapes) {
 			shapes.add(shape.clone());
 		}
-		draw();
 	}
 	
 	public abstract RenderShape createRender();
