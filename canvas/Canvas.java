@@ -1,4 +1,4 @@
-package application;
+package canvas;
 
 import shape.IShape;
 

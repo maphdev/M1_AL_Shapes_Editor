@@ -1,4 +1,4 @@
-package application;
+package canvas;
 
 public interface Memento {
 

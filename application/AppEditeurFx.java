@@ -1,12 +1,15 @@
 package application;
 
-import bar.BarCanvas;
-import bar.BarMenu;
+import canvas.Canvas;
+import igraph.InterfaceFx;
+import igraph.InterfaceGraphique;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import menu.CanvasMenu;
+import menu.Menu;
 
 public class AppEditeurFx extends Application implements AppEditeur{
 	
@@ -15,11 +18,16 @@ public class AppEditeurFx extends Application implements AppEditeur{
 	private Scene scene;
 	
 	private InterfaceGraphique iGraph;
-	private BarMenu barMenu;
-	private BarCanvas barCanvas;
+	private Menu barMenu;
+	private CanvasMenu barCanvas;
 	private Canvas canvas;
 	
 	public AppEditeurFx() {}
+	public AppEditeurFx(Menu barMenu, CanvasMenu barCanvas, Canvas canvas) {
+		this.barMenu = barMenu;
+		this.barCanvas = barCanvas;
+		this.canvas = canvas;
+	}
 	
 	public void startLaunch(){
 		launch();
@@ -35,13 +43,13 @@ public class AppEditeurFx extends Application implements AppEditeur{
         stage.show();
         
         iGraph = new InterfaceFx(root);
-        barMenu = iGraph.createBarMenu();
+        barMenu = barMenu==null? iGraph.createBarMenu(): iGraph.createBarMenu(barMenu);
 	}
 	
-	public BarMenu getBarMenu() {
+	public Menu getBarMenu() {
 		return barMenu;
 	}
-	public BarCanvas getBarCanvas() {
+	public CanvasMenu getBarCanvas() {
 		return barCanvas;
 	}
 	public Canvas getCanvas() {

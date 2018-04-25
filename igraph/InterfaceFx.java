@@ -1,9 +1,11 @@
-package application;
+package igraph;
 
-import bar.BarCanvas;
-import bar.BarMenu;
-import bar.BarMenuFx;
+import canvas.Canvas;
+import edit.Edit;
 import javafx.scene.Group;
+import menu.CanvasMenu;
+import menu.Menu;
+import menu.MenuFx;
 
 public class InterfaceFx implements InterfaceGraphique {
 	
@@ -13,17 +15,17 @@ public class InterfaceFx implements InterfaceGraphique {
 		_root = root;
 	}
 	
-	public BarMenu createBarMenu() {
-		return new BarMenuFx(_root);
+	public Menu createBarMenu() {
+		return new MenuFx(_root);
 	}
-	public BarMenu createBarMenu(BarMenu barMenu) {
+	public Menu createBarMenu(Menu barMenu) {
 		return null;
 	}
 	
-	public BarCanvas createBarCanvas() {
+	public CanvasMenu createBarCanvas() {
 		return null;
 	}
-	public BarCanvas createBarCanvas(BarCanvas barCanvas) {
+	public CanvasMenu createBarCanvas(CanvasMenu barCanvas) {
 		return null;
 	}
 	
@@ -34,10 +36,10 @@ public class InterfaceFx implements InterfaceGraphique {
 		return null;
 	}
 	
-	public EditMenu createEditMenu() {
+	public Edit createEditMenu() {
 		return null;
 	}
-	public EditMenu createEditMenu(EditMenu editMenu) {
+	public Edit createEditMenu(Edit edit) {
 		return null;
 	}
 	

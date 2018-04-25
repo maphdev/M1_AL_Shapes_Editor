@@ -1,13 +1,14 @@
 package application;
 
-import bar.BarCanvas;
-import bar.BarMenu;
+import canvas.Canvas;
+import menu.CanvasMenu;
+import menu.Menu;
 
 public interface AppEditeur {
 	
 	public void startLaunch();
-	public BarMenu getBarMenu();
-	public BarCanvas getBarCanvas();
+	public Menu getBarMenu();
+	public CanvasMenu getBarCanvas();
 	public Canvas getCanvas();
 	
 }
