@@ -18,7 +18,7 @@ public class MenuFx extends MenuAbstract implements Menu{
 	private double _width = 800;
 	private double _height = 60;
 	
-	private List<ButtonMenuFx> _buttonsFx;
+	private List<ButtonMenuFx> buttonsFx;
 	
 	private Group _root;
 	private Rectangle _zone;
@@ -40,19 +40,19 @@ public class MenuFx extends MenuAbstract implements Menu{
 		_zone.setStroke(Color.BLACK);
 		_zone.setStrokeWidth(_stroke);
         _root.getChildren().add(_zone);
-        _buttonsFx = new ArrayList<ButtonMenuFx>();
-        for(Button b : _buttons) {
+        buttonsFx = new ArrayList<ButtonMenuFx>();
+        for(Button b : buttons) {
         	addButton(b);
         }
 	}
 	
 	private void addButton(Button b) {
 		ButtonMenuFx _b = new ButtonMenuFx(
-				_buttonsFx.size()*(_height+_buttonMarge)+_posX+_buttonMarge,
+				buttonsFx.size()*(_height+_buttonMarge)+_posX+_buttonMarge,
 				_posY+_buttonMarge,
 				_height-2*_buttonMarge,
 				b);
 		_root.getChildren().add(_b);
-		_buttonsFx.add(_b);
+		buttonsFx.add(_b);
 	}
 }

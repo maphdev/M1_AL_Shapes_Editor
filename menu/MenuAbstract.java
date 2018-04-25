@@ -5,26 +5,26 @@ import java.util.List;
 
 public abstract class MenuAbstract {
 	
-	protected List<Button> _buttons;
+	protected List<Button> buttons;
 	
 	public MenuAbstract() {
-		_buttons = new ArrayList<Button>();
-		_buttons.add(new Button() {
+		buttons = new ArrayList<Button>();
+		buttons.add(new Button() {
 			public void action() {
 				saveCanvas();
 			}
 		});
-		_buttons.add(new Button() {
+		buttons.add(new Button() {
 			public void action() {
 				loadCanvas();
 			}
 		});
-		_buttons.add(new Button() {
+		buttons.add(new Button() {
 			public void action() {
 				undo();
 			}
 		});
-		_buttons.add(new Button() {
+		buttons.add(new Button() {
 			public void action() {
 				redo();
 			}
