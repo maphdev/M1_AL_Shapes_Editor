@@ -67,7 +67,7 @@ public abstract class AShape implements IShape {
 		str.append("\nRotation : ");
 		str.append(Double.toString(getRotation()));
 		str.append("\nColor : ");
-		str.append(getColor());
+		str.append(Integer.toString(getColor()));
 		str.append("\n");
 		return str.toString();
 	}
