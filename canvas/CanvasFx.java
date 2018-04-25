@@ -40,6 +40,7 @@ public class CanvasFx extends CanvasAbstract{
         
         shapeGroup = new Group();
         renderShape = createRender();
+        super.draw();
 	}
 
 	@Override
