@@ -7,11 +7,11 @@ import menu.Menu;
 
 public interface InterfaceGraphique {
 	
-	public Menu createBarMenu();
-	public Menu createBarMenu(Menu barMenu);
+	public Menu createMenu();
+	public Menu createMenu(Menu barMenu);
 	
-	public CanvasMenu createBarCanvas();
-	public CanvasMenu createBarCanvas(CanvasMenu barCanvas);
+	public CanvasMenu createCanvasMenu();
+	public CanvasMenu createCanvasMenu(CanvasMenu barCanvas);
 	
 	public Canvas createCanvas();
 	public Canvas createCanvas(Canvas canvas);

@@ -5,6 +5,7 @@ import canvas.CanvasFx;
 import edit.Edit;
 import javafx.scene.Group;
 import menu.CanvasMenu;
+import menu.CanvasMenuFx;
 import menu.Menu;
 import menu.MenuFx;
 
@@ -16,18 +17,18 @@ public class InterfaceFx implements InterfaceGraphique {
 		_root = root;
 	}
 	
-	public Menu createBarMenu() {
+	public Menu createMenu() {
 		return new MenuFx(_root);
 	}
-	public Menu createBarMenu(Menu barMenu) {
+	public Menu createMenu(Menu barMenu) {
 		return new MenuFx(barMenu, _root);
 	}
 	
-	public CanvasMenu createBarCanvas() {
-		return null;
+	public CanvasMenu createCanvasMenu() {
+		return new CanvasMenuFx(_root);
 	}
-	public CanvasMenu createBarCanvas(CanvasMenu barCanvas) {
-		return null;
+	public CanvasMenu createCanvasMenu(CanvasMenu canvasMenu) {
+		return new CanvasMenuFx(canvasMenu, _root);
 	}
 	
 	public Canvas createCanvas() {

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import shape.IShape;
+import shape.Point2DCartesian;
 
 public abstract class CanvasAbstract implements Canvas{
 	
@@ -29,12 +30,14 @@ public abstract class CanvasAbstract implements Canvas{
 		undoStack = new ArrayDeque<CommandCanvas>();
 		redoStack = new ArrayDeque<CommandCanvas>();
 		shapes = new ArrayList<IShape>();
+		shapes.add(new shape.Rectangle(new Point2DCartesian(200,200), 0, 0xFF0000, 100, 100, 10));
 	}
 	
 	public CanvasAbstract(Canvas c) {
 		undoStack = ((CanvasAbstract)c).undoStack;
 		redoStack = ((CanvasAbstract)c).redoStack;
 		shapes = ((CanvasAbstract)c).shapes;
+		draw();
 	}
 	
 	public void execute(CommandCanvas command) {

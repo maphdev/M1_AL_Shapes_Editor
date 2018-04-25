@@ -1,6 +1,8 @@
 package canvas;
 
+import javafx.event.EventHandler;
 import javafx.scene.Group;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
@@ -26,8 +28,6 @@ public class CanvasFx extends CanvasAbstract{
 	}
 	
 	private void init(Group root) {
-		this.root = new Group();
-		root.getChildren().add(this.root);
 		page = new Rectangle();
 		page.setX(posX);
 		page.setY(posY);
@@ -36,9 +36,23 @@ public class CanvasFx extends CanvasAbstract{
 		page.setFill(Color.WHITE);
 		page.setStroke(Color.BLACK);
 		page.setStrokeWidth(stroke);
+		
+		this.root = new Group();
         this.root.getChildren().add(page);
+        root.getChildren().add(this.root);
         
+        this.root.setOnMouseEntered(new EventHandler<MouseEvent>(){
+            public void handle(MouseEvent me){
+            	page.setFill(Color.LIGHTGREY);
+            }
+        });
+		this.root.setOnMouseExited(new EventHandler<MouseEvent>(){
+	        public void handle(MouseEvent me){
+	        	page.setFill(Color.WHITE);
+	        }
+	    });
         shapeGroup = new Group();
+        this.root.getChildren().add(shapeGroup);
         renderShape = createRender();
         super.draw();
 	}
