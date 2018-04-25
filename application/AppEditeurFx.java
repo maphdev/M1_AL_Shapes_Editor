@@ -23,10 +23,10 @@ public class AppEditeurFx extends Application implements AppEditeur{
 	private Canvas canvas;
 	
 	public AppEditeurFx() {}
-	public AppEditeurFx(Menu barMenu, CanvasMenu barCanvas, Canvas canvas) {
-		this.menu = barMenu;
-		this.canvasMenu = barCanvas;
-		this.canvas = canvas;
+	public AppEditeurFx(AppEditeur app) {
+		this.menu = app.getBarMenu();
+		this.canvasMenu = app.getBarCanvas();
+		this.canvas = app.getCanvas();
 	}
 	
 	public void startLaunch(){
@@ -44,6 +44,7 @@ public class AppEditeurFx extends Application implements AppEditeur{
         
         iGraph = new InterfaceFx(root);
         menu = menu==null? iGraph.createBarMenu(): iGraph.createBarMenu(menu);
+        canvas = canvas==null? iGraph.createCanvas(): iGraph.createCanvas(canvas);
 	}
 	
 	public Menu getBarMenu() {

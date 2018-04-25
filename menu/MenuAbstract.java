@@ -31,6 +31,10 @@ public abstract class MenuAbstract {
 		});
 	}
 	
+	public MenuAbstract(Menu m) {
+		buttons = ((MenuAbstract) m).buttons;
+	}
+	
 	public void saveCanvas() {}
 	public void loadCanvas() {}
 	public void undo() {}

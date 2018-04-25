@@ -1,6 +1,7 @@
 package igraph;
 
 import canvas.Canvas;
+import canvas.CanvasFx;
 import edit.Edit;
 import javafx.scene.Group;
 import menu.CanvasMenu;
@@ -19,7 +20,7 @@ public class InterfaceFx implements InterfaceGraphique {
 		return new MenuFx(_root);
 	}
 	public Menu createBarMenu(Menu barMenu) {
-		return null;
+		return new MenuFx(barMenu, _root);
 	}
 	
 	public CanvasMenu createBarCanvas() {
@@ -30,10 +31,10 @@ public class InterfaceFx implements InterfaceGraphique {
 	}
 	
 	public Canvas createCanvas() {
-		return null;
+		return new CanvasFx(_root);
 	}
 	public Canvas createCanvas(Canvas canvas) {
-		return null;
+		return new CanvasFx(canvas, _root);
 	}
 	
 	public Edit createEditMenu() {

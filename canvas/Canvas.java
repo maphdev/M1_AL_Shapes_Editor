@@ -4,6 +4,7 @@ import canvas.CanvasAbstract.MementoCanvas;
 import shape.IShape;
 
 public interface Canvas {
+	
 	public void execute(CommandCanvas command);
 	public void undo();
 	public void redo();
@@ -12,4 +13,5 @@ public interface Canvas {
 	public void draw();
 	public MementoCanvas createMemento();
 	public void restoreMemento(MementoCanvas m);
+	public RenderShape createRender();
 }

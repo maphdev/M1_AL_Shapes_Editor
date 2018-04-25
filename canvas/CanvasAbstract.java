@@ -8,15 +8,13 @@ import shape.IShape;
 
 public abstract class CanvasAbstract implements Canvas{
 	
-	public class MementoCanvas implements Memento{
+	public class MementoCanvas {
 		private List<IShape> shapes;
-		private CanvasAbstract canvas;
-		public MementoCanvas(CanvasAbstract c) {
+		public MementoCanvas(Canvas c) {
 			shapes = new ArrayList<IShape>();
-			for(IShape shape : c.shapes) {
+			for(IShape shape : ((CanvasAbstract)c).shapes) {
 				shapes.add(shape.clone());
 			}
-			canvas = c;
 		}
 	}
 	
@@ -31,6 +29,12 @@ public abstract class CanvasAbstract implements Canvas{
 		undoStack = new ArrayDeque<CommandCanvas>();
 		redoStack = new ArrayDeque<CommandCanvas>();
 		shapes = new ArrayList<IShape>();
+	}
+	
+	public CanvasAbstract(Canvas c) {
+		undoStack = ((CanvasAbstract)c).undoStack;
+		redoStack = ((CanvasAbstract)c).redoStack;
+		shapes = ((CanvasAbstract)c).shapes;
 	}
 	
 	public void execute(CommandCanvas command) {
@@ -70,8 +74,9 @@ public abstract class CanvasAbstract implements Canvas{
 		for(IShape shape : m.shapes) {
 			shapes.add(shape.clone());
 		}
-		
 	}
+	
+	public abstract RenderShape createRender();
 	
 	
 }
