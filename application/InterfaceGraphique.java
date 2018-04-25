@@ -1,5 +1,8 @@
 package application;
 
+import bar.BarCanvas;
+import bar.BarMenu;
+
 public interface InterfaceGraphique {
 	
 	public BarMenu createBarMenu();
