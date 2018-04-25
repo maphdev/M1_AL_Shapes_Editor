@@ -7,8 +7,8 @@ import menu.Menu;
 public interface AppEditeur {
 	
 	public void startLaunch();
-	public Menu getBarMenu();
-	public CanvasMenu getBarCanvas();
+	public Menu getMenu();
+	public CanvasMenu getCanvasMenu();
 	public Canvas getCanvas();
 	
 }

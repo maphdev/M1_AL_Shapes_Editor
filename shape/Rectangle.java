@@ -1,6 +1,6 @@
 package shape;
 
-import canvas.RenderShape;
+import render.RenderShape;
 
 public class Rectangle extends AShape {
 

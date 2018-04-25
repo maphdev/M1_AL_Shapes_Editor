@@ -1,4 +1,4 @@
-package canvas;
+package command;
 
 public interface CommandCanvas {
 	public void execute();

@@ -2,7 +2,7 @@ package shape;
 
 import java.util.List;
 
-import canvas.RenderShape;
+import render.RenderShape;
 
 import java.util.ArrayList;
 

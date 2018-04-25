@@ -1,4 +1,4 @@
-package canvas;
+package render;
 
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
@@ -26,10 +26,13 @@ public class RenderShapeFx implements RenderShape{
 	}
 	
 	public void draw(shape.Rectangle shape) {
-		Rectangle rect = new Rectangle(_posX + shape.getPosition().getX(), _posY + shape.getPosition().getX(), _posX + shape.getPosition().getX() + shape.getWidth(), _posY + shape.getPosition().getX() + shape.getHeight());
+		Rectangle rect = new Rectangle();
+		rect.setX(_posX + shape.getPosition().getX());
+		rect.setY(_posY + shape.getPosition().getY());
+		rect.setWidth(shape.getWidth());
+		rect.setHeight(shape.getHeight());
 		rect.setRotate(shape.getRotation());
-		rect.setFill(Color.TRANSPARENT);
-		rect.setStroke(Color.web(String.format("0x%06X", shape.getColor())));
+		rect.setFill(Color.web(String.format("0x%06X", shape.getColor())));
 		rect.setArcWidth(shape.getRounding());
 		rect.setArcHeight(shape.getRounding());
 		_root.getChildren().add(rect);

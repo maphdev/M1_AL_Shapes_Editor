@@ -24,8 +24,8 @@ public class AppEditeurFx extends Application implements AppEditeur{
 	
 	public AppEditeurFx() {}
 	public AppEditeurFx(AppEditeur app) {
-		this.menu = app.getBarMenu();
-		this.canvasMenu = app.getBarCanvas();
+		this.menu = app.getMenu();
+		this.canvasMenu = app.getCanvasMenu();
 		this.canvas = app.getCanvas();
 	}
 	
@@ -49,10 +49,10 @@ public class AppEditeurFx extends Application implements AppEditeur{
         
 	}
 	
-	public Menu getBarMenu() {
+	public Menu getMenu() {
 		return menu;
 	}
-	public CanvasMenu getBarCanvas() {
+	public CanvasMenu getCanvasMenu() {
 		return canvasMenu;
 	}
 	public Canvas getCanvas() {

@@ -5,12 +5,14 @@ import javafx.scene.Group;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import render.RenderShape;
+import render.RenderShapeFx;
 
 public class CanvasFx extends CanvasAbstract{
 	
 	private Group root;
 	private Group shapeGroup;
-	private Rectangle page;
+	private Rectangle board;
 	
 	private double posX = 60;
 	private double posY = 60;
@@ -28,27 +30,27 @@ public class CanvasFx extends CanvasAbstract{
 	}
 	
 	private void init(Group root) {
-		page = new Rectangle();
-		page.setX(posX);
-		page.setY(posY);
-		page.setWidth(root.getScene().getWidth()-posX-marge);
-		page.setHeight(root.getScene().getHeight()-posY-marge);
-		page.setFill(Color.WHITE);
-		page.setStroke(Color.BLACK);
-		page.setStrokeWidth(stroke);
+		board = new Rectangle();
+		board.setX(posX);
+		board.setY(posY);
+		board.setWidth(root.getScene().getWidth()-posX-marge);
+		board.setHeight(root.getScene().getHeight()-posY-marge);
+		board.setFill(Color.WHITE);
+		board.setStroke(Color.BLACK);
+		board.setStrokeWidth(stroke);
 		
 		this.root = new Group();
-        this.root.getChildren().add(page);
+        this.root.getChildren().add(board);
         root.getChildren().add(this.root);
         
         this.root.setOnMouseEntered(new EventHandler<MouseEvent>(){
             public void handle(MouseEvent me){
-            	page.setFill(Color.LIGHTGREY);
+            	board.setFill(Color.LIGHTGREY);
             }
         });
 		this.root.setOnMouseExited(new EventHandler<MouseEvent>(){
 	        public void handle(MouseEvent me){
-	        	page.setFill(Color.WHITE);
+	        	board.setFill(Color.WHITE);
 	        }
 	    });
         shapeGroup = new Group();

@@ -3,7 +3,6 @@ package menu;
 import java.util.ArrayList;
 import java.util.List;
 
-import application.MainApplication;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;

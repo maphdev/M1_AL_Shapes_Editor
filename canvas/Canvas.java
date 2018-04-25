@@ -1,6 +1,8 @@
 package canvas;
 
 import canvas.CanvasAbstract.MementoCanvas;
+import command.CommandCanvas;
+import render.RenderShape;
 import shape.IShape;
 
 public interface Canvas {
