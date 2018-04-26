@@ -21,7 +21,9 @@ public class ButtonImageFx extends ButtonMenuFx {
 		imView.setFitWidth(length);
 		imView.setPreserveRatio(true);
 		
-		Rectangle r = new Rectangle(length, length, Color.TRANSPARENT);
+		Rectangle r = new Rectangle(length+8, length+8, Color.TRANSPARENT);
+		r.setTranslateX(-4);
+		r.setTranslateY(-4);
 		this.getChildren().add(r);
 		this.getChildren().add(imView);
 		this.setTranslateX(posX);
