@@ -1,16 +1,12 @@
 package canvas;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import application.AppEditeurFx;
 import application.AppInstance;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.input.ClipboardContent;
-import javafx.scene.input.DataFormat;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
@@ -18,6 +14,7 @@ import javafx.scene.input.TransferMode;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import menu.CanvasMenuFx;
 import render.RenderShapeFx;
 import shape.IShape;
 
@@ -33,7 +30,6 @@ public class CanvasFx extends CanvasAbstract{
 	private double marge = 6;
 	private double stroke = 2;
 	
-	public final static DataFormat ShapeDataFormat = new DataFormat("Shape");
 	public static List<IShape> DragShapes = new ArrayList<IShape>();
 	
 	public CanvasFx(Group root) {
@@ -113,10 +109,11 @@ public class CanvasFx extends CanvasAbstract{
         
         this._root.setOnDragOver(new EventHandler<DragEvent>() {
             public void handle(DragEvent event) {
-            	if (event.getGestureSource() == _root &&
-                		event.getDragboard().hasString()) {
+            	Dragboard db = event.getDragboard();
+            	if(db.getString().equals("CanvasFx") || db.getString().equals("CanvasMenuFx")) {
             		event.acceptTransferModes(TransferMode.MOVE);
-                	}
+                }
+            	
             	event.consume();
             }    
         });
@@ -124,22 +121,25 @@ public class CanvasFx extends CanvasAbstract{
         this._root.setOnDragDropped(new EventHandler<DragEvent>() {
         	public void handle(DragEvent event) {
         		boolean success = false;
-                if (event.getGestureSource() == _root &&
-                		event.getDragboard().hasString()) {
-                	Dragboard db = event.getDragboard();
-                	if(db.getString().equals("CanvasFx")) {
-                		IShape shape = null;
-                		for(IShape s : CanvasFx.DragShapes) {
-                			shape = s;
-                		}
-                		CanvasFx.DragShapes.clear();
-                		if(shape!=null) {
-                			shape.setPosition(event.getX()-stroke/2, event.getY()-stroke/2);
-	                		AppInstance.getInstance().getAppEditeur().getCanvas().draw();
-	                		success = true;
-                		}
-                	}
-                }
+            	Dragboard db = event.getDragboard();
+            	if(db.getString().equals("CanvasFx")) {
+            		IShape shape = null;
+            		for(IShape s : CanvasFx.DragShapes) {
+            			shape = s;
+            		}
+            		CanvasFx.DragShapes.clear();
+            		if(shape!=null) {
+            			shape.setPosition(event.getX()-stroke/2, event.getY()-stroke/2);
+                		AppInstance.getInstance().getAppEditeur().getCanvas().draw();
+                		success = true;
+            		}
+            	}
+            	else if(db.getString().equals("CanvasMenuFx")){
+            		IShape shape = CanvasMenuFx.DragShape.clone();
+            		CanvasMenuFx.DragShape = null;
+            		AppInstance.getInstance().getAppEditeur().getCanvas().add(shape);
+            		shape.setPosition(event.getX()-stroke/2, event.getY()-stroke/2);
+            	}
                 event.setDropCompleted(success);
                 event.consume();
             }
@@ -147,7 +147,6 @@ public class CanvasFx extends CanvasAbstract{
         
         this._root.setOnDragDone(new EventHandler<DragEvent>() {
             public void handle(DragEvent event) {
-            	//if(event.isDropCompleted())
                 event.consume();
             }
         });

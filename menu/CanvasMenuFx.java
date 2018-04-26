@@ -3,14 +3,11 @@ package menu;
 import java.util.ArrayList;
 import java.util.List;
 
-import application.AppInstance;
 import canvas.CanvasFx;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
-import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -18,6 +15,8 @@ import javafx.scene.shape.Rectangle;
 import shape.IShape;
 
 public class CanvasMenuFx extends CanvasMenuAbstract{
+	
+	public static IShape DragShape;
 	
 	private double marge = 6;
 	private double stroke = 2;
@@ -105,7 +104,6 @@ public class CanvasMenuFx extends CanvasMenuAbstract{
         
         this.root.setOnDragDone(new EventHandler<DragEvent>() {
             public void handle(DragEvent event) {
-            	//if(event.isDropCompleted())
                 event.consume();
             }
         });

@@ -3,7 +3,6 @@ package menu;
 import java.util.ArrayList;
 import java.util.List;
 
-import render.RenderShape;
 import shape.IShape;
 import shape.Point2DCartesian;
 import shape.Rectangle;

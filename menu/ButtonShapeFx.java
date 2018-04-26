@@ -1,16 +1,21 @@
 package menu;
 
+import javafx.event.EventHandler;
 import javafx.scene.Group;
-import javafx.scene.layout.StackPane;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.input.TransferMode;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.transform.Scale;
 import render.RenderShape;
 import render.RenderShapeFx;
-import shape.IShape;
 
 public class ButtonShapeFx extends ButtonMenuFx {
 	
 	private RenderShape render;
+	private ButtonShapeFx root;
 	
 	public ButtonShapeFx(double posX, double posY, double length, ButtonShape button) {
 		super(posX, posY, length, button);
@@ -29,6 +34,25 @@ public class ButtonShapeFx extends ButtonMenuFx {
         this.getChildren().add(g);
         render = new RenderShapeFx(g);
         button.getShape().draw(render);
+        
+        root = this;
+        root.setOnDragDetected(new EventHandler<MouseEvent>() {
+        	public void handle(MouseEvent event) {
+                Dragboard db = root.startDragAndDrop(TransferMode.ANY);
+            	CanvasMenuFx.DragShape = button.getShape();
+            	ClipboardContent content = new ClipboardContent();
+                content.putString("CanvasMenuFx");
+            	db.setContent(content);
+                event.consume();
+        	}
+        });
+        
+        root.setOnDragDone(new EventHandler<DragEvent>() {
+            public void handle(DragEvent event) {
+                event.consume();
+            }
+        });
+        
 	}
 	
 	
