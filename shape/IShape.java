@@ -6,6 +6,7 @@ public interface IShape extends Cloneable{
 	// position
 	public IPoint2D getPosition();
 	public void setPosition(IPoint2D p);
+	public void setPosition(double posX, double posY);
 
 	// color
 	public int getColor();
@@ -13,6 +14,7 @@ public interface IShape extends Cloneable{
 	
 	// methods
 	public void rotate(IPoint2D p, double degree);
+	public void rotate(double posX, double posY, double degree);
 	public void translate(double x, double y);
 	
 	public void draw(RenderShape render);

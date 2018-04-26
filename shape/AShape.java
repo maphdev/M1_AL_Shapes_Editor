@@ -30,6 +30,10 @@ public abstract class AShape implements IShape {
 		return _position;
 	}
 	
+	public void setPosition(double posX, double posY) {
+		_position = new Point2DCartesian(posX, posY);
+	}
+	
 	public void setPosition(IPoint2D p) {
 		_position = p.clone();
 	}
@@ -54,6 +58,9 @@ public abstract class AShape implements IShape {
 	public void rotate(IPoint2D p, double degree) {
 		_rotation += degree;
 		_position.rotate(p, degree);
+	}
+	public void rotate(double posX, double posY, double degree) {
+		rotate(new Point2DCartesian(posX, posY), degree);
 	}
 	
 	public void translate(double x, double y) {

@@ -42,9 +42,11 @@ public class Rectangle extends AShape {
 	}
 	
 	public boolean belongsTo(double posX, double posY) {
-		if(posX < getPosition().getX()-_width/2 || posX > getPosition().getX()+_width/2)
+		IPoint2D p = new Point2DCartesian(posX, posY);
+		p.rotate(getPosition(), -getRotation());
+		if(p.getX() < getPosition().getX()-_width/2 || p.getX() > getPosition().getX()+_width/2)
 			return false;
-		if(posY < getPosition().getY()-_height/2 || posY > getPosition().getY()+_height/2)
+		if(p.getY() < getPosition().getY()-_height/2 || p.getY() > getPosition().getY()+_height/2)
 			return false;
 		return true;
 	}

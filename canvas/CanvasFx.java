@@ -1,7 +1,17 @@
 package canvas;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import application.AppEditeurFx;
+import application.AppInstance;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.DataFormat;
+import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
@@ -15,7 +25,6 @@ public class CanvasFx extends CanvasAbstract{
 	
 	private Group _root;
 	private Group shapeGroup;
-	private Rectangle board;
 	
 	private double posX = 60;
 	private double posY = 60;
@@ -23,6 +32,9 @@ public class CanvasFx extends CanvasAbstract{
 	private double width = 740;
 	private double marge = 6;
 	private double stroke = 2;
+	
+	public final static DataFormat ShapeDataFormat = new DataFormat("Shape");
+	public static List<IShape> DragShapes = new ArrayList<IShape>();
 	
 	public CanvasFx(Group root) {
 		super();
@@ -41,7 +53,7 @@ public class CanvasFx extends CanvasAbstract{
 		height -= 2*(marge+stroke/2);
 		width -= 2*(marge+stroke/2);
 		
-		board = new Rectangle();
+		Rectangle board = new Rectangle();
 		board.setX(0);
 		board.setY(0);
 		board.setWidth(width);
@@ -51,7 +63,7 @@ public class CanvasFx extends CanvasAbstract{
 		board.setStrokeWidth(stroke);
 		
 		this._root = new Group();
-        this._root.getChildren().add(board);
+		this._root.getChildren().add(board);
         
         StackPane pane = new StackPane();
 	    pane.setMaxWidth(width);
@@ -61,7 +73,25 @@ public class CanvasFx extends CanvasAbstract{
 	    pane.getChildren().add(this._root);
         root.getChildren().add(pane);
         
+        pane = new StackPane();
+	    pane.setMaxWidth(width-stroke);
+	    pane.setMaxHeight(height-stroke);
+	    pane.setLayoutX(posX+stroke/2);
+	    pane.setLayoutY(posY+stroke/2);
+	    
+	    Rectangle clip = new Rectangle(height-stroke, width-stroke);
+        clip.setLayoutX(stroke/2);
+        clip.setLayoutY(stroke/2);
         
+        Group g = new Group();
+        g.setClip(clip);
+        g.getChildren().add(pane);	    
+	    shapeGroup = new Group();
+	    g.getChildren().add(shapeGroup);     
+        this._root.getChildren().add(g);
+        renderShape = new RenderShapeFx(shapeGroup);
+        
+        /*
         this._root.setOnMouseEntered(new EventHandler<MouseEvent>(){
             public void handle(MouseEvent me){
             	board.setFill(Color.LIGHTGREY);
@@ -72,41 +102,84 @@ public class CanvasFx extends CanvasAbstract{
 	        	board.setFill(Color.WHITE);
 	        }
 	    });
-		
-		/*
+	    */
+
         this._root.setOnDragDetected(new EventHandler<MouseEvent>() {
         	public void handle(MouseEvent event) {
-                Dragboard db = _root.startDragAndDrop(TransferMode.LINK);
+                Dragboard db = _root.startDragAndDrop(TransferMode.ANY);
                 IShape shape = null;
+                System.out.println(event.getX());
+                System.out.println(event.getY());
                 for(IShape s : shapes) {
-                	if(s.belongsTo(event.getX(), event.getY()))
+                	if(s.belongsTo(event.getX()-stroke/2, event.getY()-stroke/2)) {
                 		shape = s;
                 		break;
+                	}
                 }
                 if(shape!=null) {
-                	db.setContent((CanvasAbstract)shape);
+                	System.out.println("Ok");
+                	CanvasFx.DragShapes.add(shape);
+                	ClipboardContent content = new ClipboardContent();
+                    content.putString("CanvasFx");
+                	db.setContent(content);
                 }
+                event.consume();
         	}
         });
-        */
         
-		pane = new StackPane();
-	    pane.setMaxWidth(width-stroke);
-	    pane.setMaxHeight(height-stroke);
-	    pane.setLayoutX(posX+stroke/2);
-	    pane.setLayoutY(posY+stroke/2);
-	    
-	    Rectangle clip = new Rectangle(height-stroke, width-stroke);
-        clip.setLayoutX(stroke/2);
-        clip.setLayoutY(stroke/2);
+        this._root.setOnDragOver(new EventHandler<DragEvent>() {
+            public void handle(DragEvent event) {
+            	if (event.getGestureSource() == _root &&
+                		event.getDragboard().hasString()) {
+            		event.acceptTransferModes(TransferMode.MOVE);
+                	}
+            	event.consume();
+            }    
+        });
         
-        shapeGroup = new Group();
-        shapeGroup.setClip(clip);
-	    shapeGroup.getChildren().add(pane);
+        this._root.setOnDragDropped(new EventHandler<DragEvent>() {
+        	public void handle(DragEvent event) {
+        		boolean success = false;
+                if (event.getGestureSource() == _root &&
+                		event.getDragboard().hasString()) {
+                	Dragboard db = event.getDragboard();
+                	if(db.getString().equals("CanvasFx")) {
+                		IShape shape = null;
+                		for(IShape s : CanvasFx.DragShapes) {
+                			shape = s;
+                		}
+                		CanvasFx.DragShapes.clear();
+                		if(shape!=null) {
+                			shape.setPosition(event.getX()-stroke/2, event.getY()-stroke/2);
+	                		System.out.println("Oki");
+	                		Canvas c = AppInstance.getInstance().getAppEditeur().getCanvas();
+	                		System.out.println("Try Draw");
+	                		System.out.println((Object)c);
+	                		c.draw();
+	                		success = true;
+                		}
+                	}
+                }
+                event.setDropCompleted(success);
+                event.consume();
+            }
+        });
         
-        this._root.getChildren().add(shapeGroup);
-        renderShape = new RenderShapeFx(shapeGroup);
-        super.draw();
+        this._root.setOnDragDone(new EventHandler<DragEvent>() {
+            public void handle(DragEvent event) {
+            	System.out.println("DragEND");
+            	//if(event.isDropCompleted())
+                event.consume();
+            }
+        });
+        
+        draw();
+	}
+	
+	public void draw() {
+		System.out.println("Draw");
+		shapeGroup.getChildren().clear(); 
+		super.draw();
 	}
 
 }

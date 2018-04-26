@@ -23,8 +23,8 @@ public class RenderShapeFx implements RenderShape{
 	
 	public void draw(shape.Rectangle shape) {
 		Rectangle rect = new Rectangle();
-		rect.setX(shape.getPosition().getX());
-		rect.setY(shape.getPosition().getY());
+		rect.setX(shape.getPosition().getX()-shape.getWidth()/2);
+		rect.setY(shape.getPosition().getY()-shape.getHeight()/2);
 		rect.setWidth(shape.getWidth());
 		rect.setHeight(shape.getHeight());
 		rect.setRotate(shape.getRotation());

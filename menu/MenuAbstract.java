@@ -3,7 +3,7 @@ package menu;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class MenuAbstract {
+public abstract class MenuAbstract implements Menu{
 	
 	protected List<Button> buttons;
 	

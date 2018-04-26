@@ -34,6 +34,10 @@ public class GroupShapes extends AShape {
 		render.draw(this);
 	}
 	
+	public void rotate(double posX, double posY, double degree) {
+		rotate(new Point2DCartesian(posX, posY), degree);
+	}
+	
 	public void rotate(IPoint2D p, double degree) {
 		super.rotate(p, degree);
 		for(IShape shape : _group) {

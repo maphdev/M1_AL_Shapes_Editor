@@ -42,10 +42,13 @@ public class AppEditeurFx extends Application implements AppEditeur{
         stage.setScene(scene);
         stage.show();
         
+        AppInstance.getInstance().setAppEditeur(this);
+        
         iGraph = new InterfaceFx(root);
         menu = menu==null? iGraph.createMenu(): iGraph.createMenu(menu);
         canvas = canvas==null? iGraph.createCanvas(): iGraph.createCanvas(canvas);
         canvasMenu = canvasMenu==null? iGraph.createCanvasMenu(): iGraph.createCanvasMenu(canvasMenu);
+        
         
 	}
 	
@@ -57,6 +60,9 @@ public class AppEditeurFx extends Application implements AppEditeur{
 	}
 	public Canvas getCanvas() {
 		return canvas;
+	}
+	public void close() {
+		stage.close();
 	}
 	
 	

@@ -10,5 +10,6 @@ public interface AppEditeur {
 	public Menu getMenu();
 	public CanvasMenu getCanvasMenu();
 	public Canvas getCanvas();
+	public void close();
 	
 }
