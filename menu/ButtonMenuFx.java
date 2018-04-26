@@ -8,14 +8,14 @@ import javafx.scene.shape.Rectangle;
 
 public class ButtonMenuFx extends Parent {
 	
-	private double _posX;
-	private double _posY;
-	private double _length;
+	protected double _posX;
+	protected double _posY;
+	protected double _length;
 	
-	private Button _button;
-    private Rectangle _buttonFx;
+	protected Button _button;
+	protected Rectangle _buttonFx;
 	
-	private Color _color = Color.WHITE;
+	protected Color _color = Color.WHITE;
     
 
 	public ButtonMenuFx(double posX, double posY, double length, Button button) {
@@ -72,6 +72,10 @@ public class ButtonMenuFx extends Parent {
 	public void setPosY(double posY) {
 		_posY = posY;
 		this.setTranslateY(_posY);
+	}
+	
+	public Button getButton() {
+		return _button;
 	}
 	
 	public void setLength(double length) {

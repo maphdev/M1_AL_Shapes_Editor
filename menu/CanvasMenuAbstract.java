@@ -10,26 +10,13 @@ import shape.Rectangle;
 
 public abstract class CanvasMenuAbstract implements CanvasMenu{
 	
-	protected List<Button> buttons;
-	protected RenderShape renderShape;
+	protected List<ButtonShape> buttons;
 	protected Button trash = new Button();
 	
 	public CanvasMenuAbstract() {
-		buttons = new ArrayList<Button>();
-		buttons.add(new Button() {
-			private IShape shape = new Rectangle(new Point2DCartesian(),
-					0, 0xFF0000, 20, 50, 5);
-			public void action() {
-				draw(shape);
-			}
-		});
-		buttons.add(new Button() {
-			private IShape shape = new Rectangle(new Point2DCartesian(),
-					0, 0x00FF00, 50, 20, 5);
-			public void action() {
-				draw(shape);
-			}
-		});
+		buttons = new ArrayList<ButtonShape>();
+		buttons.add(new ButtonShape(new Rectangle(new Point2DCartesian(20, 80),0, 0xFF0000, 20, 50, 5)));
+		buttons.add(new ButtonShape(new Rectangle(new Point2DCartesian(100, 150),0, 0x00FF00, 50, 20, 5)));
 	}
 	
 	public CanvasMenuAbstract(CanvasMenu m) {

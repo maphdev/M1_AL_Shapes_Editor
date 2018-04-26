@@ -90,26 +90,11 @@ public class CanvasFx extends CanvasAbstract{
 	    g.getChildren().add(shapeGroup);     
         this._root.getChildren().add(g);
         renderShape = new RenderShapeFx(shapeGroup);
-        
-        /*
-        this._root.setOnMouseEntered(new EventHandler<MouseEvent>(){
-            public void handle(MouseEvent me){
-            	board.setFill(Color.LIGHTGREY);
-            }
-        });
-		this._root.setOnMouseExited(new EventHandler<MouseEvent>(){
-	        public void handle(MouseEvent me){
-	        	board.setFill(Color.WHITE);
-	        }
-	    });
-	    */
 
         this._root.setOnDragDetected(new EventHandler<MouseEvent>() {
         	public void handle(MouseEvent event) {
                 Dragboard db = _root.startDragAndDrop(TransferMode.ANY);
                 IShape shape = null;
-                System.out.println(event.getX());
-                System.out.println(event.getY());
                 for(IShape s : shapes) {
                 	if(s.belongsTo(event.getX()-stroke/2, event.getY()-stroke/2)) {
                 		shape = s;
@@ -117,7 +102,6 @@ public class CanvasFx extends CanvasAbstract{
                 	}
                 }
                 if(shape!=null) {
-                	System.out.println("Ok");
                 	CanvasFx.DragShapes.add(shape);
                 	ClipboardContent content = new ClipboardContent();
                     content.putString("CanvasFx");
@@ -151,11 +135,7 @@ public class CanvasFx extends CanvasAbstract{
                 		CanvasFx.DragShapes.clear();
                 		if(shape!=null) {
                 			shape.setPosition(event.getX()-stroke/2, event.getY()-stroke/2);
-	                		System.out.println("Oki");
-	                		Canvas c = AppInstance.getInstance().getAppEditeur().getCanvas();
-	                		System.out.println("Try Draw");
-	                		System.out.println((Object)c);
-	                		c.draw();
+	                		AppInstance.getInstance().getAppEditeur().getCanvas().draw();
 	                		success = true;
                 		}
                 	}
@@ -167,7 +147,6 @@ public class CanvasFx extends CanvasAbstract{
         
         this._root.setOnDragDone(new EventHandler<DragEvent>() {
             public void handle(DragEvent event) {
-            	System.out.println("DragEND");
             	//if(event.isDropCompleted())
                 event.consume();
             }
@@ -177,7 +156,6 @@ public class CanvasFx extends CanvasAbstract{
 	}
 	
 	public void draw() {
-		System.out.println("Draw");
 		shapeGroup.getChildren().clear(); 
 		super.draw();
 	}

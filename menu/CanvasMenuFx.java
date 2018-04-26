@@ -20,7 +20,7 @@ public class CanvasMenuFx extends CanvasMenuAbstract{
 	private double width = 60;
 	private double height = 740;
 	
-	private List<ButtonMenuFx> buttonsFx;
+	private List<ButtonShapeFx> buttonsFx;
 	
 	private Group root;
 	private Rectangle board;
@@ -50,7 +50,6 @@ public class CanvasMenuFx extends CanvasMenuAbstract{
 	    pane.setLayoutY(posY);
 	    pane.getChildren().add(this.root);
         root.getChildren().add(pane);
-        
 		board = new Rectangle();
 		board.setX(0);
 		board.setY(0);
@@ -60,14 +59,15 @@ public class CanvasMenuFx extends CanvasMenuAbstract{
 		board.setStroke(Color.BLACK);
 		board.setStrokeWidth(stroke);
 		this.root.getChildren().add(board);
-        buttonsFx = new ArrayList<ButtonMenuFx>();
-        for(Button b : buttons) {
+        buttonsFx = new ArrayList<ButtonShapeFx>();
+        for(ButtonShape b : buttons) {
         	addButton(b);
         }
+        
 	}
 	
-	private void addButton(Button b) {
- 		ButtonMenuFx _b = new ButtonMenuFx(
+	private void addButton(ButtonShape b) {
+		ButtonShapeFx _b = new ButtonShapeFx(
  				buttonMarge,
  				buttonsFx.size()*(width-buttonMarge)+buttonMarge,
  				width-2*buttonMarge,
