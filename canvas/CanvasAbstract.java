@@ -68,6 +68,10 @@ public abstract class CanvasAbstract implements Canvas {
 		shapes.remove(shape);
 		draw();
 	}
+	public void remove(List<IShape> shape) {
+		shapes.removeAll(shape);
+		draw();
+	}
 	
 	public void draw() {
 		for(IShape shape : shapes) {

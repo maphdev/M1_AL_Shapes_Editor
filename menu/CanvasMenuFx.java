@@ -3,6 +3,8 @@ package menu;
 import java.util.ArrayList;
 import java.util.List;
 
+import application.AppInstance;
+import canvas.Canvas;
 import canvas.CanvasFx;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
@@ -70,6 +72,7 @@ public class CanvasMenuFx extends CanvasMenuAbstract{
         for(ButtonShape b : buttons) {
         	addButton(b);
         }
+        addGarbageButton();
         
         this.root.setOnDragOver(new EventHandler<DragEvent>() {
             public void handle(DragEvent event) {
@@ -90,9 +93,7 @@ public class CanvasMenuFx extends CanvasMenuAbstract{
                 		}
                 		CanvasFx.DragShapes.clear();
                 		if(shape!=null) {
-                			ButtonShape b = new ButtonShape(shape.clone());
-                			buttons.add(b);
-                			addButton(b);
+                			addButtonFx(shape);
 	                		success = true;
                 		}
                 	}
@@ -108,7 +109,6 @@ public class CanvasMenuFx extends CanvasMenuAbstract{
             }
         });
         
-        
 	}
 	
 	private void addButton(ButtonShape b) {
@@ -121,7 +121,80 @@ public class CanvasMenuFx extends CanvasMenuAbstract{
  		buttonsFx.add(_b);
  	}
 	
-	public void draw(IShape shape) {}
-	public void add(IShape shape) {}
-	public void delete(IShape shape) {}
+	private void addGarbageButton() {
+		ButtonImage b = new ButtonImage("/icons/garbage.png") {	
+		};
+		ButtonMenuFx _b = new ButtonImageFx(
+				buttonMarge,
+				height-width+buttonMarge,
+				width-2*buttonMarge,
+				b, b.getPath());
+		
+		_b.setOnDragOver(new EventHandler<DragEvent>() {
+            public void handle(DragEvent event) {
+            	event.acceptTransferModes(TransferMode.MOVE);
+            	event.consume();
+            }    
+        });
+		
+		_b.setOnDragDropped(new EventHandler<DragEvent>() {
+        	public void handle(DragEvent event) {
+        		boolean success = false;
+                if(event.getDragboard().hasString()) {
+                	Dragboard db = event.getDragboard();
+                	if(db.getString().equals("CanvasFx")) {
+                		deleteShapeOnCanvas(CanvasFx.DragShapes);
+                		CanvasFx.DragShapes.clear();
+                	}
+                	if(db.getString().equals("CanvasMenuFx")) {
+                		deleteShapeOnMenu(CanvasMenuFx.DragShape);
+                		CanvasMenuFx.DragShape = null;
+                	}
+                }
+                event.setDropCompleted(success);
+                event.consume();
+            }
+        });
+
+		root.getChildren().add(_b);
+	}
+	
+	public void addButtonFx(IShape shape) {
+		ButtonShape b = new ButtonShape(shape.clone());
+		buttons.add(b);
+		addButton(b);
+	}
+	
+	public void deleteShapeOnMenu(IShape shape) {
+		ButtonShape _b = null;
+		for(ButtonShape b : buttons) {
+			if(b.getShape()==shape) {
+				_b = b;
+				break;
+			}
+        }
+		buttons.remove(_b);
+		ButtonShapeFx _bfx = null;
+		for(ButtonShapeFx bfx : buttonsFx) {
+			if(bfx.getButton()==_b) {
+				_bfx = bfx;
+				break;
+			}
+		}
+		buttonsFx.remove(_bfx);
+		root.getChildren().remove(_bfx);
+		
+		int i = 0;
+		for(ButtonShapeFx bfx : buttonsFx) {
+			bfx.setPosX(buttonMarge);
+			bfx.setPosY(i*(width-buttonMarge)+buttonMarge);
+			++i;
+		}
+			
+	}
+	
+	public void deleteShapeOnCanvas(List<IShape> shapes) {
+		Canvas c = AppInstance.getInstance().getAppEditeur().getCanvas();
+		c.remove(shapes);
+	}
 }

@@ -22,8 +22,8 @@ public abstract class CanvasMenuAbstract implements CanvasMenu{
 		buttons = ((CanvasMenuAbstract) m).buttons;
 	}
 	
-	public abstract void draw(IShape shape);
-	public abstract void add(IShape shape);
-	public abstract void delete(IShape shape);
+	public abstract void addButtonFx(IShape shape);
+	public abstract void deleteShapeOnMenu(IShape shape);
+	public abstract void deleteShapeOnCanvas(List<IShape> shapes);
 
 }

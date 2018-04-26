@@ -2,7 +2,7 @@ package menu;
 
 import shape.IShape;
 
-public class ButtonShape extends Button{
+public class ButtonShape extends Button implements Cloneable{
 	
 	private IShape _s;
 	
@@ -15,7 +15,22 @@ public class ButtonShape extends Button{
 		return _s;
 	}
 	
+	public void setShape(IShape s) {
+		_s = s;
+	}
+	
 	public void action() {
 		
 	}
+	
+	public ButtonShape clone() {
+		ButtonShape b = null;
+		try {
+			b = (ButtonShape) super.clone();
+		} catch (CloneNotSupportedException e) {
+			e.printStackTrace();
+		}
+		return b;
+	}
+
 }

@@ -1,11 +1,13 @@
 package menu;
 
+import java.util.List;
+
 import shape.IShape;
 
 public interface CanvasMenu {
 	
-	public void draw(IShape shape);
-	public void add(IShape shape);
-	public void delete(IShape shape);
+	public void addButtonFx(IShape shape);
+	public void deleteShapeOnMenu(IShape shape);
+	public void deleteShapeOnCanvas(List<IShape> shapes);
 	
 }
