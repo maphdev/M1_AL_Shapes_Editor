@@ -18,7 +18,20 @@ public class RenderShapeFx implements RenderShape{
 	public void draw(GroupShapes shape) {}
 	
 	public void draw(shape.Polygon shape) {
-		Polygon polyg = new Polygon(new double[]{shape.getPosition().getX(), shape.getPosition().getY()});
+
+		Double[] tab = new Double[2 * shape.getNbSides()];
+        
+        Polygon poly = new Polygon();
+        for (int i = 0; i < 2 * shape.getNbSides(); i += 2) {
+        	tab[i+0] = (shape.getPosition().getX() + 50 * Math.cos(i/2 * 2 * Math.PI / shape.getNbSides()));
+        	tab[i+1] = (shape.getPosition().getY() + 50 * Math.sin(i/2 * 2 * Math.PI / shape.getNbSides()));
+        }
+        poly.getPoints().addAll(tab);
+		poly.setRotate(shape.getRotation());
+        poly.setFill(Color.web(String.format("0x%06X", shape.getColor())));
+		poly.setStroke(Color.web(String.format("0x%06X", shape.getColor())).darker());
+		
+		_root.getChildren().add(poly);
 	}
 	
 	public void draw(shape.Rectangle shape) {
@@ -29,6 +42,7 @@ public class RenderShapeFx implements RenderShape{
 		rect.setHeight(shape.getHeight());
 		rect.setRotate(shape.getRotation());
 		rect.setFill(Color.web(String.format("0x%06X", shape.getColor())));
+		rect.setStroke(Color.web(String.format("0x%06X", shape.getColor())).darker());
 		rect.setArcWidth(shape.getRounding());
 		rect.setArcHeight(shape.getRounding());
 		_root.getChildren().add(rect);
