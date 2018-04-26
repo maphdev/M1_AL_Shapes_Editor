@@ -32,7 +32,7 @@ public abstract class CanvasAbstract implements Canvas{
 		undoStack = new ArrayDeque<CommandCanvas>();
 		redoStack = new ArrayDeque<CommandCanvas>();
 		shapes = new ArrayList<IShape>();
-		shapes.add(new shape.Rectangle(new Point2DCartesian(200,200), 0, 0xFF0000, 200, 200, 10));
+		shapes.add(new shape.Rectangle(new Point2DCartesian(0,0), 45, 0xFF0000, 200, 200, 10));
 	}
 	
 	public CanvasAbstract(Canvas c) {
@@ -84,8 +84,5 @@ public abstract class CanvasAbstract implements Canvas{
 		}
 		draw();
 	}
-	
-	public abstract RenderShape createRender();
-	
 	
 }

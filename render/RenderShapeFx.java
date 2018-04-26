@@ -10,13 +10,9 @@ import shape.GroupShapes;
 public class RenderShapeFx implements RenderShape{
 	
 	private Group _root;
-	private double _posX;
-	private double _posY;
 	
-	public RenderShapeFx(Group root, double posX, double posY) {
+	public RenderShapeFx(Group root) {
 		_root = root;
-		_posX = posX;
-		_posY = posY;
 	}
 	
 	public void draw(GroupShapes shape) {}
@@ -27,8 +23,8 @@ public class RenderShapeFx implements RenderShape{
 	
 	public void draw(shape.Rectangle shape) {
 		Rectangle rect = new Rectangle();
-		rect.setX(_posX + shape.getPosition().getX());
-		rect.setY(_posY + shape.getPosition().getY());
+		rect.setX(shape.getPosition().getX());
+		rect.setY(shape.getPosition().getY());
 		rect.setWidth(shape.getWidth());
 		rect.setHeight(shape.getHeight());
 		rect.setRotate(shape.getRotation());

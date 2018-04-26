@@ -4,13 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javafx.scene.Group;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import shape.IShape;
 
 public class CanvasMenuFx extends CanvasMenuAbstract{
 	
-	private double marge = 4;
+	private double marge = 6;
 	private double stroke = 2;
 	private double buttonMarge = 5;
 	
@@ -35,14 +36,24 @@ public class CanvasMenuFx extends CanvasMenuAbstract{
 	}
 	
 	private void init(Group root) {
-		width -= 2*(marge+stroke/2);
-		height = root.getScene().getWidth()-(marge+stroke/2)-posY;
+		
 		posX += marge+stroke/2;
+		posY += marge+stroke/2;
+		width -= marge+stroke/2;
+		height -= 2*(marge+stroke/2);
+		
 		this.root = new Group();
-		root.getChildren().add(this.root);
+		StackPane pane = new StackPane();
+	    pane.setMaxWidth(width);
+	    pane.setMaxHeight(height);
+	    pane.setLayoutX(posX);
+	    pane.setLayoutY(posY);
+	    pane.getChildren().add(this.root);
+        root.getChildren().add(pane);
+        
 		board = new Rectangle();
-		board.setX(posX);
-		board.setY(posY);
+		board.setX(0);
+		board.setY(0);
 		board.setWidth(width);
 		board.setHeight(height);
 		board.setFill(Color.WHITE);
@@ -57,8 +68,8 @@ public class CanvasMenuFx extends CanvasMenuAbstract{
 	
 	private void addButton(Button b) {
  		ButtonMenuFx _b = new ButtonMenuFx(
- 				posX+buttonMarge,
- 				buttonsFx.size()*(width+buttonMarge)+posY+buttonMarge,
+ 				buttonMarge,
+ 				buttonsFx.size()*(width-buttonMarge)+buttonMarge,
  				width-2*buttonMarge,
  				b);
  		root.getChildren().add(_b);

@@ -2,7 +2,6 @@ package canvas;
 
 import canvas.CanvasAbstract.MementoCanvas;
 import command.CommandCanvas;
-import render.RenderShape;
 import shape.IShape;
 
 public interface Canvas {
@@ -15,5 +14,4 @@ public interface Canvas {
 	public void draw();
 	public MementoCanvas createMemento();
 	public void restoreMemento(MementoCanvas m);
-	public RenderShape createRender();
 }
