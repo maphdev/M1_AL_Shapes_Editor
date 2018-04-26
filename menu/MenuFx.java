@@ -59,17 +59,17 @@ public class MenuFx extends MenuAbstract implements Menu{
 		board.setStrokeWidth(stroke);
 		this.root.getChildren().add(board);
         buttonsFx = new ArrayList<ButtonMenuFx>();
-        for(Button b : buttons) {
+        for(ButtonImage b : buttons) {
         	addButton(b);
         }
 	}
 	
-	private void addButton(Button b) {
-		ButtonMenuFx _b = new ButtonMenuFx(
+	private void addButton(ButtonImage b) {
+		ButtonMenuFx _b = new ButtonImageFx(
 				buttonsFx.size()*(height-buttonMarge)+buttonMarge,
 				buttonMarge,
 				height-2*buttonMarge,
-				b);
+				b, b.getPath());
 		root.getChildren().add(_b);
 		buttonsFx.add(_b);
 	}
