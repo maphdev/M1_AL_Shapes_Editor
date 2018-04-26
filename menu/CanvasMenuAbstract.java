@@ -15,7 +15,7 @@ public abstract class CanvasMenuAbstract implements CanvasMenu{
 	
 	public CanvasMenuAbstract() {
 		buttons = new ArrayList<ButtonShape>();
-		buttons.add(new ButtonShape(new Rectangle(new Point2DCartesian(20, 80),0, 0xFF0000, 20, 50, 5)));
+		buttons.add(new ButtonShape(new Rectangle(new Point2DCartesian(20, 80),0, 0xFF0000, 200, 300, 5)));
 		buttons.add(new ButtonShape(new Rectangle(new Point2DCartesian(100, 150),0, 0x00FF00, 50, 20, 5)));
 	}
 	
