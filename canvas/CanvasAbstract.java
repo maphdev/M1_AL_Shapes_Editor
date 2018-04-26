@@ -9,7 +9,7 @@ import render.RenderShape;
 import shape.IShape;
 import shape.Point2DCartesian;
 
-public abstract class CanvasAbstract implements Canvas{
+public abstract class CanvasAbstract implements Canvas {
 	
 	public class MementoCanvas {
 		private List<IShape> shapes;
@@ -24,7 +24,7 @@ public abstract class CanvasAbstract implements Canvas{
 	private ArrayDeque<CommandCanvas> undoStack;
 	private ArrayDeque<CommandCanvas> redoStack;
 	
-	private List<IShape> shapes;
+	protected List<IShape> shapes;
 	
 	protected RenderShape renderShape;
 	

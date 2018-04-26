@@ -1,5 +1,7 @@
 package shape;
 
+import java.util.List;
+
 import render.RenderShape;
 
 public abstract class AShape implements IShape {
@@ -9,6 +11,18 @@ public abstract class AShape implements IShape {
 		_position = position.clone();
 		_rotation = rotation;
 		_color = color;
+	}
+	
+	public void add(IShape s) {
+		throw new UnsupportedOperationException();
+	}
+	
+	public void remove(IShape s) {
+		throw new UnsupportedOperationException();
+	}
+	
+	public List<IShape> getGroupShapes(){
+		throw new UnsupportedOperationException();
 	}
 	
 	// getters - setters
@@ -45,6 +59,8 @@ public abstract class AShape implements IShape {
 	public void translate(double x, double y) {
 		_position.translate(x, y);
 	}
+	
+	public abstract boolean belongsTo(double posX, double posY);
 	
 	public abstract void draw(RenderShape render);
 	

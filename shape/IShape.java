@@ -2,7 +2,7 @@ package shape;
 
 import render.RenderShape;
 
-public interface IShape extends Cloneable {
+public interface IShape extends Cloneable{
 	// position
 	public IPoint2D getPosition();
 	public void setPosition(IPoint2D p);
@@ -16,7 +16,7 @@ public interface IShape extends Cloneable {
 	public void translate(double x, double y);
 	
 	public void draw(RenderShape render);
-
+	public boolean belongsTo(double posX, double posY);
 	// canonical form
 	public IShape clone();
 	public boolean equals(IShape shape);

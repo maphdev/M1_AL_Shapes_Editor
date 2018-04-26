@@ -2,15 +2,18 @@ package canvas;
 
 import javafx.event.EventHandler;
 import javafx.scene.Group;
+import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import render.RenderShapeFx;
+import shape.IShape;
 
 public class CanvasFx extends CanvasAbstract{
 	
-	private Group root;
+	private Group _root;
 	private Group shapeGroup;
 	private Rectangle board;
 	
@@ -47,28 +50,45 @@ public class CanvasFx extends CanvasAbstract{
 		board.setStroke(Color.BLACK);
 		board.setStrokeWidth(stroke);
 		
-		this.root = new Group();
-        this.root.getChildren().add(board);
+		this._root = new Group();
+        this._root.getChildren().add(board);
         
         StackPane pane = new StackPane();
 	    pane.setMaxWidth(width);
 	    pane.setMaxHeight(height);
 	    pane.setLayoutX(posX);
 	    pane.setLayoutY(posY);
-	    pane.getChildren().add(this.root);
+	    pane.getChildren().add(this._root);
         root.getChildren().add(pane);
         
-        this.root.setOnMouseEntered(new EventHandler<MouseEvent>(){
+        
+        this._root.setOnMouseEntered(new EventHandler<MouseEvent>(){
             public void handle(MouseEvent me){
             	board.setFill(Color.LIGHTGREY);
             }
         });
-		this.root.setOnMouseExited(new EventHandler<MouseEvent>(){
+		this._root.setOnMouseExited(new EventHandler<MouseEvent>(){
 	        public void handle(MouseEvent me){
 	        	board.setFill(Color.WHITE);
 	        }
 	    });
 		
+		/*
+        this._root.setOnDragDetected(new EventHandler<MouseEvent>() {
+        	public void handle(MouseEvent event) {
+                Dragboard db = _root.startDragAndDrop(TransferMode.LINK);
+                IShape shape = null;
+                for(IShape s : shapes) {
+                	if(s.belongsTo(event.getX(), event.getY()))
+                		shape = s;
+                		break;
+                }
+                if(shape!=null) {
+                	db.setContent((CanvasAbstract)shape);
+                }
+        	}
+        });
+        */
         
 		pane = new StackPane();
 	    pane.setMaxWidth(width-stroke);
@@ -84,7 +104,7 @@ public class CanvasFx extends CanvasAbstract{
         shapeGroup.setClip(clip);
 	    shapeGroup.getChildren().add(pane);
         
-        this.root.getChildren().add(shapeGroup);
+        this._root.getChildren().add(shapeGroup);
         renderShape = new RenderShapeFx(shapeGroup);
         super.draw();
 	}

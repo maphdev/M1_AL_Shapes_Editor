@@ -11,6 +11,10 @@ public class Polygon extends AShape {
 		_lengthSide = lengthSide;
 	}
 	
+	public Polygon(double posX, double posY, double rotation, int color, int nbSides, double lengthSide) {
+		this(new Point2DCartesian(posX, posY), rotation, color, nbSides, lengthSide);
+	}
+	
 	// getters - setters
 	public int getNbSides() {
 		return _nbSides;
@@ -26,6 +30,10 @@ public class Polygon extends AShape {
 	
 	public void setLengthSide(double lengthSide) {
 		_lengthSide = lengthSide;
+	}
+	
+	public boolean belongsTo(double posX, double posY) {
+		return false;
 	}
 	
 	public void draw(RenderShape render) {

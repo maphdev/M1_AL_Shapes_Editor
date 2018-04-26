@@ -11,6 +11,10 @@ public class Rectangle extends AShape {
 		_height = height;
 		_rounding = rounding;
 	}
+	
+	public Rectangle(double posX, double posY, double rotation, int color, double width, double height, double rounding) {
+		this(new Point2DCartesian(posX, posY), rotation, color, width, height, rounding);
+	}
 
 	// getters - setters
 	public double getWidth() {
@@ -35,6 +39,14 @@ public class Rectangle extends AShape {
 	
 	public void setRounding(double r) {
 		_rounding = r;
+	}
+	
+	public boolean belongsTo(double posX, double posY) {
+		if(posX < getPosition().getX()-_width/2 || posX > getPosition().getX()+_width/2)
+			return false;
+		if(posY < getPosition().getY()-_height/2 || posY > getPosition().getY()+_height/2)
+			return false;
+		return true;
 	}
 	
 	public void draw(RenderShape render) {

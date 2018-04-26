@@ -34,6 +34,28 @@ public class GroupShapes extends AShape {
 		render.draw(this);
 	}
 	
+	public void rotate(IPoint2D p, double degree) {
+		super.rotate(p, degree);
+		for(IShape shape : _group) {
+			shape.rotate(p, degree);
+		}
+	}
+	
+	public void translate(double posX, double posY) {
+		super.translate(posX, posY);
+		for(IShape shape : _group) {
+			shape.translate(posX, posY);
+		}
+	}
+	
+	public boolean belongsTo(double posX, double posY) {
+		for(IShape shape : _group) {
+			if(shape.belongsTo(posX, posY))
+				return true;
+		}
+		return false;
+	}
+	
 	// methods
 	@Override
 	public GroupShapes clone() {
