@@ -6,12 +6,19 @@ import java.util.List;
 import application.AppInstance;
 import canvas.Canvas;
 import canvas.CanvasFx;
+import command.CommandBreak;
 import command.CommandCanvas;
 import command.CommandGroup;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import shape.GroupShapes;
+import shape.IShape;
 
 public class MenuFx extends MenuAbstract implements Menu{
 	
@@ -67,9 +74,46 @@ public class MenuFx extends MenuAbstract implements Menu{
         for(ButtonImage b : buttons) {
         	addButton(b);
         }
+        
+        ButtonMenuFx _b = addButton(breaker);
+        
+        _b.setOnDragOver(new EventHandler<DragEvent>() {
+            public void handle(DragEvent event) {
+            	Dragboard db = event.getDragboard();
+            	if(db.getString().equals("CanvasFx"))
+            		event.acceptTransferModes(TransferMode.MOVE);
+            	event.consume();
+            }
+        });
+        
+        _b.setOnDragDropped(new EventHandler<DragEvent>() {
+        	public void handle(DragEvent event) {
+        		boolean success = false;
+                if(event.getDragboard().hasString()) {
+                	Dragboard db = event.getDragboard();
+                	if(db.getString().equals("CanvasFx")) {
+                		IShape shape = null;
+                		for(IShape s : CanvasFx.DragShapes) {
+                			shape = s;
+                		}
+                		CanvasFx.DragShapes.clear();
+                		if(shape!=null && shape instanceof GroupShapes) {
+                			Canvas c = AppInstance.getInstance().getAppEditeur().getCanvas();
+                			CommandCanvas cmd = new CommandBreak(c, (GroupShapes)shape);
+                			c.execute(cmd);
+                			CanvasFx.DragShapes.clear();
+	                		success = true;
+                		}
+                	}
+                }
+                event.setDropCompleted(success);
+                event.consume();
+            }
+        });
+        
 	}
 	
-	private void addButton(ButtonImage b) {
+	private ButtonMenuFx addButton(ButtonImage b) {
 		ButtonMenuFx _b = new ButtonImageFx(
 				buttonsFx.size()*(height-buttonMarge)+buttonMarge,
 				buttonMarge,
@@ -77,6 +121,7 @@ public class MenuFx extends MenuAbstract implements Menu{
 				b, b.getPath());
 		root.getChildren().add(_b);
 		buttonsFx.add(_b);
+		return _b;
 	}
 	
 	public void groupSelection() {
@@ -87,5 +132,5 @@ public class MenuFx extends MenuAbstract implements Menu{
 		c.execute(cmd);
 		CanvasFx.DragShapes.clear();
 	}
-	public void breakSelection() {}
+	public void breakSelection(IShape s) {}
 }

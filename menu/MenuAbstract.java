@@ -5,10 +5,12 @@ import java.util.List;
 
 import application.AppInstance;
 import canvas.Canvas;
+import shape.IShape;
 
 public abstract class MenuAbstract implements Menu{
 	
 	protected List<ButtonImage> buttons;
+	protected ButtonImage breaker;
 	
 	public MenuAbstract() {
 		buttons = new ArrayList<ButtonImage>();
@@ -32,16 +34,12 @@ public abstract class MenuAbstract implements Menu{
 				redo();
 			}
 		});
-		buttons.add(new ButtonImage("/icons/lock-open.png") {
-			public void action() {
-				breakSelection();
-			}
-		});
 		buttons.add(new ButtonImage("/icons/lock.png") {
 			public void action() {
 				groupSelection();
 			}
 		});
+		breaker = new ButtonImage("/icons/lock-open.png");
 	}
 	
 	public MenuAbstract(Menu m) {
@@ -52,7 +50,7 @@ public abstract class MenuAbstract implements Menu{
 	public void loadCanvas() {}
 	
 	public abstract void groupSelection();
-	public abstract void breakSelection();
+	public abstract void breakSelection(IShape s);
 	
 	public void undo() {
 		Canvas c = AppInstance.getInstance().getAppEditeur().getCanvas();

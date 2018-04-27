@@ -33,10 +33,9 @@ public abstract class CanvasAbstract implements Canvas {
 		undoStack = new ArrayDeque<CommandCanvas>();
 		redoStack = new ArrayDeque<CommandCanvas>();
 		shapes = new ArrayList<IShape>();
-		//shapes.add(new shape.Rectangle(new Point2DCartesian(150,50), 0, 0xFF0000, 30, 200, 10));
 		List<IShape> l = new ArrayList<IShape>();
-		l.add(new shape.Rectangle(new Point2DCartesian(150,50), 0, 0xFF0000, 80, 200, 10));
-		l.add(new shape.Rectangle(new Point2DCartesian(400,250), 0, 0xFF0000, 60, 90, 10));
+		l.add(new shape.Rectangle(new Point2DCartesian(150,130), 0, 0x0000FF, 80, 200, 10));
+		l.add(new shape.Rectangle(new Point2DCartesian(210,160), 0, 0xFFFF00, 60, 90, 10));
 		shapes.add(new GroupShapes(l));
 	}
 	
@@ -50,7 +49,6 @@ public abstract class CanvasAbstract implements Canvas {
 	public void execute(CommandCanvas c) {
 		undoStack.addFirst(c);
 		c.execute();
-		System.out.println(shapes);
 		redoStack.clear();
 		draw();
 	}

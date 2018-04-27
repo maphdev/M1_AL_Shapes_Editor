@@ -6,6 +6,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Circle;
 import shape.GroupShapes;
+import shape.IShape;
 
 public class RenderShapeFx implements RenderShape{
 	
@@ -15,7 +16,10 @@ public class RenderShapeFx implements RenderShape{
 		_root = root;
 	}
 	
-	public void draw(GroupShapes shape) {}
+	public void draw(GroupShapes shapes) {
+		for(IShape s : shapes.getGroupShapes())
+			s.draw(this);
+	}
 	
 	public void draw(shape.Polygon shape) {
 
