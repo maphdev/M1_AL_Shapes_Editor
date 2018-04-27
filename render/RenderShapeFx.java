@@ -4,7 +4,7 @@ import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Polygon;
-
+import javafx.scene.shape.Circle;
 import shape.GroupShapes;
 
 public class RenderShapeFx implements RenderShape{
@@ -46,6 +46,15 @@ public class RenderShapeFx implements RenderShape{
 		rect.setArcWidth(shape.getRounding());
 		rect.setArcHeight(shape.getRounding());
 		_root.getChildren().add(rect);
+	}
+
+	@Override
+	public void draw(shape.Circle shape) {
+		Circle circle = new Circle(shape.getPosition().getX(), shape.getPosition().getY(), shape.getRadius());
+		circle.setRotate(shape.getRotation());
+		circle.setFill(Color.web(String.format("0x%06X", shape.getColor())));
+		circle.setStroke(Color.web(String.format("0x%06X", shape.getColor())).darker());
+		_root.getChildren().add(circle);
 	}
 	
 }
