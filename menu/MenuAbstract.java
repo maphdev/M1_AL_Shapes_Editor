@@ -32,6 +32,16 @@ public abstract class MenuAbstract implements Menu{
 				redo();
 			}
 		});
+		buttons.add(new ButtonImage("/icons/lock-open.png") {
+			public void action() {
+				//
+			}
+		});
+		buttons.add(new ButtonImage("/icons/lock.png") {
+			public void action() {
+				//
+			}
+		});
 	}
 	
 	public MenuAbstract(Menu m) {
