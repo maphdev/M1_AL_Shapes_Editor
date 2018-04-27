@@ -23,6 +23,8 @@ import shape.IShape;
 
 public class CanvasFx extends CanvasAbstract{
 	
+	public static List<IShape> DragShapes = new ArrayList<IShape>();
+	
 	private Group _root;
 	private Group shapeGroup;
 	
@@ -33,7 +35,7 @@ public class CanvasFx extends CanvasAbstract{
 	private double marge = 6;
 	private double stroke = 2;
 	
-	public static List<IShape> DragShapes = new ArrayList<IShape>();
+	private Rectangle selection = new Rectangle();
 	
 	public CanvasFx(Group root) {
 		super();
@@ -92,7 +94,7 @@ public class CanvasFx extends CanvasAbstract{
 
         this._root.setOnDragDetected(new EventHandler<MouseEvent>() {
         	public void handle(MouseEvent event) {
-                Dragboard db = _root.startDragAndDrop(TransferMode.ANY);
+        		Dragboard db = _root.startDragAndDrop(TransferMode.ANY);
                 IShape shape = null;
                 for(IShape s : shapes) {
                 	if(s.belongsTo(event.getX()-stroke/2, event.getY()-stroke/2)) {
@@ -101,9 +103,21 @@ public class CanvasFx extends CanvasAbstract{
                 	}
                 }
                 if(shape!=null) {
-                	CanvasFx.DragShapes.add(shape);
+                	if(CanvasFx.DragShapes.size() == 0 && !CanvasFx.DragShapes.contains(shape)){
+                		CanvasFx.DragShapes.add(shape);
+            		}
                 	ClipboardContent content = new ClipboardContent();
                     content.putString("CanvasFx");
+                	db.setContent(content);
+                }
+                else {
+                	_root.getChildren().add(selection);
+                	selection.setX(event.getX()-stroke/2);
+                	selection.setY(event.getY()-stroke/2);
+                	selection.setFill(Color.TRANSPARENT);
+                	selection.setStroke(Color.BLACK);
+                	ClipboardContent content = new ClipboardContent();
+                	content.putString("Selection");
                 	db.setContent(content);
                 }
                 event.consume();
@@ -116,7 +130,11 @@ public class CanvasFx extends CanvasAbstract{
             	if(db.getString().equals("CanvasFx") || db.getString().equals("CanvasMenuFx")) {
             		event.acceptTransferModes(TransferMode.MOVE);
                 }
-            	
+            	if(db.getString().equals("Selection")) {
+            		event.acceptTransferModes(TransferMode.MOVE);
+            		selection.setWidth(event.getX()-stroke/2-selection.getX());
+            		selection.setHeight(event.getY()-stroke/2-selection.getY());
+            	}
             	event.consume();
             }    
         });
@@ -146,6 +164,17 @@ public class CanvasFx extends CanvasAbstract{
             		CommandCanvas cmd = new CommandAdd(c, shape);
             		c.execute(cmd);
             		success = true;
+            	}
+            	if(db.getString().equals("Selection")) {
+            		if(selection.getWidth()>0 && selection.getHeight()>0) {
+	            		for(IShape s: shapes) {
+	            			if(s.getPosition().getX()-selection.getX()<selection.getWidth() &&
+	            					s.getPosition().getY()-selection.getY()<selection.getHeight()) {
+	            				CanvasFx.DragShapes.add(s);
+	            			}
+	            		}
+            		}
+            		_root.getChildren().remove(selection);
             	}
                 event.setDropCompleted(success);
                 event.consume();
