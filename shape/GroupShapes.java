@@ -9,21 +9,8 @@ import java.util.ArrayList;
 public class GroupShapes extends AShape {
 	
 	public GroupShapes(List<IShape> group) {
-		super(new Point2DCartesian(0,0), 0, 0);
-		_max = new Point2DCartesian(group.get(0).getPosition().getX(), group.get(0).getPosition().getY());
-		_min = new Point2DCartesian(group.get(0).getPosition().getX(), group.get(0).getPosition().getY());
+		super(group.get(0).getPosition(), 0, 0);
 		_group = group;
-		updatePosition();
-	}
-	
-	public void add(IShape s) {
-		_group.add(s);
-		updatePosition();
-	}
-	
-	public void remove(IShape s) {
-		_group.remove(s);
-		updatePosition();
 	}
 	
 	public List<IShape> getGroupShapes(){
@@ -32,6 +19,18 @@ public class GroupShapes extends AShape {
 	
 	public void draw(RenderShape render) {
 		render.draw(this);
+	}
+	
+	public void setPosition(IPoint2D p) {
+		double t_x = p.getX()-getPosition().getX();
+		double t_y = p.getY()-getPosition().getY();
+		super.setPosition(p);
+		for(IShape shape : _group)
+			shape.translate(t_x, t_y );
+	}
+	
+	public void setPosition(double posX, double posY) {
+		setPosition(new Point2DCartesian(posX, posY));
 	}
 	
 	public void rotate(double posX, double posY, double degree) {
@@ -54,8 +53,9 @@ public class GroupShapes extends AShape {
 	
 	public boolean belongsTo(double posX, double posY) {
 		for(IShape shape : _group) {
-			if(shape.belongsTo(posX, posY))
+			if(shape.belongsTo(posX, posY)) {
 				return true;
+			}
 		}
 		return false;
 	}
@@ -78,33 +78,12 @@ public class GroupShapes extends AShape {
 		return false;
 	}
 	
-	private void updatePosition() {
-		for(int i=0; i<_group.size(); ++i) {
-			if(_group.get(i).getPosition().getX() < _min.getX()) {
-				_min.setX(_group.get(i).getPosition().getX());
-			}
-			if(_group.get(i).getPosition().getX() > _max.getX()) {
-				_max.setX(_group.get(i).getPosition().getX());
-			}
-			if(_group.get(i).getPosition().getY() < _min.getY()) {
-				_min.setY(_group.get(i).getPosition().getY());
-			}
-			if(_group.get(i).getPosition().getY() > _max.getY()) {
-				_max.setY(_group.get(i).getPosition().getY());
-			}
-		}
-		IPoint2D position = new Point2DCartesian((_max.getX()+_min.getX())/2, (_max.getY()+_min.getY())/2);
-		setPosition(position);
-	}
-	
 	public String toString() {
-		return "to be implemented";
+		return _group.toString();
 	}
 	
 	// object members
 	private List<IShape> _group;
-	private IPoint2D _max;
-	private IPoint2D _min;
 	
 	// TO DO
 }

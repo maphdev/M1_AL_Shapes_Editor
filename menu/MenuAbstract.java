@@ -34,12 +34,12 @@ public abstract class MenuAbstract implements Menu{
 		});
 		buttons.add(new ButtonImage("/icons/lock-open.png") {
 			public void action() {
-				//
+				breakSelection();
 			}
 		});
 		buttons.add(new ButtonImage("/icons/lock.png") {
 			public void action() {
-				//
+				groupSelection();
 			}
 		});
 	}
@@ -50,6 +50,9 @@ public abstract class MenuAbstract implements Menu{
 	
 	public void saveCanvas() {}
 	public void loadCanvas() {}
+	
+	public abstract void groupSelection();
+	public abstract void breakSelection();
 	
 	public void undo() {
 		Canvas c = AppInstance.getInstance().getAppEditeur().getCanvas();

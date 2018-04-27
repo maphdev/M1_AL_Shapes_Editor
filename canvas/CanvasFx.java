@@ -111,9 +111,13 @@ public class CanvasFx extends CanvasAbstract{
                 	db.setContent(content);
                 }
                 else {
-                	_root.getChildren().add(selection);
+                	CanvasFx.DragShapes.clear();
+                	if(!_root.getChildren().contains(selection))
+                		_root.getChildren().add(selection);
                 	selection.setX(event.getX()-stroke/2);
                 	selection.setY(event.getY()-stroke/2);
+                	selection.setWidth(0);
+                	selection.setHeight(0);
                 	selection.setFill(Color.TRANSPARENT);
                 	selection.setStroke(Color.BLACK);
                 	ClipboardContent content = new ClipboardContent();
@@ -174,7 +178,6 @@ public class CanvasFx extends CanvasAbstract{
 	            			}
 	            		}
             		}
-            		_root.getChildren().remove(selection);
             	}
                 event.setDropCompleted(success);
                 event.consume();
@@ -183,6 +186,7 @@ public class CanvasFx extends CanvasAbstract{
         
         this._root.setOnDragDone(new EventHandler<DragEvent>() {
             public void handle(DragEvent event) {
+            	_root.getChildren().remove(selection);
                 event.consume();
             }
         });

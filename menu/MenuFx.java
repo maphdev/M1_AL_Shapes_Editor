@@ -3,6 +3,11 @@ package menu;
 import java.util.ArrayList;
 import java.util.List;
 
+import application.AppInstance;
+import canvas.Canvas;
+import canvas.CanvasFx;
+import command.CommandCanvas;
+import command.CommandGroup;
 import javafx.scene.Group;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -73,4 +78,14 @@ public class MenuFx extends MenuAbstract implements Menu{
 		root.getChildren().add(_b);
 		buttonsFx.add(_b);
 	}
+	
+	public void groupSelection() {
+		if(CanvasFx.DragShapes.size()<=1)
+			return;
+		Canvas c = AppInstance.getInstance().getAppEditeur().getCanvas();
+		CommandCanvas cmd = new CommandGroup(c, CanvasFx.DragShapes);
+		c.execute(cmd);
+		CanvasFx.DragShapes.clear();
+	}
+	public void breakSelection() {}
 }

@@ -14,10 +14,14 @@ public class CommandGroup extends CommandAbstract {
 	
 	public void execute() {
 		super.execute();
-		GroupShapes g = new GroupShapes(list);
-		c.remove(list);
-		c.add(g);
-		redo = c.createMemento();
+		if(redo != null)
+			c.restoreMemento(redo);
+		else {
+			c.remove(list);
+			GroupShapes g = new GroupShapes(list);
+			c.add(g);
+			redo = c.createMemento();
+		}
 	}
 	
 }
