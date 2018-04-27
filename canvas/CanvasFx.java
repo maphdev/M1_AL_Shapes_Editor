@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import application.AppInstance;
+import command.CommandAdd;
+import command.CommandCanvas;
+import command.CommandSetPosition;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.input.ClipboardContent;
@@ -129,16 +132,20 @@ public class CanvasFx extends CanvasAbstract{
             		}
             		CanvasFx.DragShapes.clear();
             		if(shape!=null) {
-            			shape.setPosition(event.getX()-stroke/2, event.getY()-stroke/2);
-                		AppInstance.getInstance().getAppEditeur().getCanvas().draw();
+            			Canvas c = AppInstance.getInstance().getAppEditeur().getCanvas();
+            			CommandCanvas cmd = new CommandSetPosition(c, shape, event.getX()-stroke/2, event.getY()-stroke/2);
+            			c.execute(cmd);
                 		success = true;
             		}
             	}
             	else if(db.getString().equals("CanvasMenuFx")){
             		IShape shape = CanvasMenuFx.DragShape.clone();
             		CanvasMenuFx.DragShape = null;
-            		AppInstance.getInstance().getAppEditeur().getCanvas().add(shape);
             		shape.setPosition(event.getX()-stroke/2, event.getY()-stroke/2);
+            		Canvas c = AppInstance.getInstance().getAppEditeur().getCanvas();
+            		CommandCanvas cmd = new CommandAdd(c, shape);
+            		c.execute(cmd);
+            		success = true;
             	}
                 event.setDropCompleted(success);
                 event.consume();

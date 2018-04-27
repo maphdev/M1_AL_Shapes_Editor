@@ -3,8 +3,6 @@ package menu;
 import java.util.ArrayList;
 import java.util.List;
 
-import application.AppInstance;
-import canvas.Canvas;
 import canvas.CanvasFx;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
@@ -193,8 +191,4 @@ public class CanvasMenuFx extends CanvasMenuAbstract{
 			
 	}
 	
-	public void deleteShapeOnCanvas(List<IShape> shapes) {
-		Canvas c = AppInstance.getInstance().getAppEditeur().getCanvas();
-		c.remove(shapes);
-	}
 }

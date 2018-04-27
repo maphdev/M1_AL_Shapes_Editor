@@ -3,6 +3,9 @@ package menu;
 import java.util.ArrayList;
 import java.util.List;
 
+import application.AppInstance;
+import canvas.Canvas;
+
 public abstract class MenuAbstract implements Menu{
 	
 	protected List<ButtonImage> buttons;
@@ -37,6 +40,13 @@ public abstract class MenuAbstract implements Menu{
 	
 	public void saveCanvas() {}
 	public void loadCanvas() {}
-	public void undo() {}
-	public void redo() {}
+	
+	public void undo() {
+		Canvas c = AppInstance.getInstance().getAppEditeur().getCanvas();
+		c.undo();
+	}
+	public void redo() {
+		Canvas c = AppInstance.getInstance().getAppEditeur().getCanvas();
+		c.redo();
+	}
 }

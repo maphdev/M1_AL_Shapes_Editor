@@ -42,35 +42,38 @@ public abstract class CanvasAbstract implements Canvas {
 		draw();
 	}
 	
-	public void execute(CommandCanvas command) {
-		undoStack.addFirst(command);
-		command.execute();
-		redoStack = new ArrayDeque<CommandCanvas>();
+	public void execute(CommandCanvas c) {
+		undoStack.addFirst(c);
+		c.execute();
+		redoStack.clear();
 		draw();
 	}
 	
 	public void redo() {
 		CommandCanvas c = redoStack.pollFirst();
-		this.execute(c);
+		if(c != null) {
+			undoStack.addFirst(c);
+			c.execute();
+			draw();
+		}
 	}
 	
 	public void undo() {
 		CommandCanvas c = undoStack.pollFirst();
-		redoStack.addFirst(c);
-		c.reverse();
+		if(c != null) {
+			redoStack.addFirst(c);
+			c.reverse();
+		}
 	}
 	
 	public void add(IShape shape) {
 		shapes.add(shape);
-		draw();
 	}
 	public void remove(IShape shape) {
 		shapes.remove(shape);
-		draw();
 	}
 	public void remove(List<IShape> shape) {
 		shapes.removeAll(shape);
-		draw();
 	}
 	
 	public void draw() {

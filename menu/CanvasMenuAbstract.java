@@ -3,6 +3,10 @@ package menu;
 import java.util.ArrayList;
 import java.util.List;
 
+import application.AppInstance;
+import canvas.Canvas;
+import command.CommandCanvas;
+import command.CommandRemove;
 import shape.IShape;
 import shape.Point2DCartesian;
 import shape.Rectangle;
@@ -24,6 +28,11 @@ public abstract class CanvasMenuAbstract implements CanvasMenu{
 	
 	public abstract void addButtonFx(IShape shape);
 	public abstract void deleteShapeOnMenu(IShape shape);
-	public abstract void deleteShapeOnCanvas(List<IShape> shapes);
+	
+	public void deleteShapeOnCanvas(List<IShape> shapes) {
+		Canvas c = AppInstance.getInstance().getAppEditeur().getCanvas();
+		CommandCanvas cmd = new CommandRemove(c, shapes);
+		c.execute(cmd);
+	}
 
 }
