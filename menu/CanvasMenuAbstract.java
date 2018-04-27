@@ -7,6 +7,7 @@ import application.AppInstance;
 import canvas.Canvas;
 import command.CommandCanvas;
 import command.CommandRemove;
+import shape.Circle;
 import shape.IShape;
 import shape.Point2DCartesian;
 import shape.Rectangle;
@@ -18,8 +19,9 @@ public abstract class CanvasMenuAbstract implements CanvasMenu{
 	
 	public CanvasMenuAbstract() {
 		buttons = new ArrayList<ButtonShape>();
-		buttons.add(new ButtonShape(new Rectangle(new Point2DCartesian(20, 80),0, 0xFF0000, 200, 300, 5)));
-		buttons.add(new ButtonShape(new Rectangle(new Point2DCartesian(100, 150),0, 0x00FF00, 50, 20, 5)));
+		buttons.add(new ButtonShape(new Rectangle(new Point2DCartesian(20, 80),0, 0x119199, 300, 200, 5)));
+		buttons.add(new ButtonShape(new Rectangle(new Point2DCartesian(100, 150),0, 0xd65076, 50, 20, 5)));
+		buttons.add(new ButtonShape(new Circle(new Point2DCartesian(100, 150), 0, 0xf0da55, 50)));
 	}
 	
 	public CanvasMenuAbstract(CanvasMenu m) {
